@@ -130,6 +130,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="PhysicalSimulationServer.cpp" />
+    <ClCompile Include="protobuf\coord.pb.cc" />
+    <ClCompile Include="protobuf\fusion.pb.cc" />
+    <ClCompile Include="protobuf\haptic.pb.cc" />
+    <ClCompile Include="protobuf\offset.pb.cc" />
+    <ClCompile Include="protobuf\tissue.pb.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="protobuf\coord.pb.h" />
+    <ClInclude Include="protobuf\fusion.pb.h" />
+    <ClInclude Include="protobuf\haptic.pb.h" />
+    <ClInclude Include="protobuf\offset.pb.h" />
+    <ClInclude Include="protobuf\tissue.pb.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="protobuf\coord.proto" />
+    <None Include="protobuf\fusion.proto" />
+    <None Include="protobuf\haptic.proto" />
+    <None Include="protobuf\offset.proto" />
+    <None Include="protobuf\tissue.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
