@@ -143,13 +143,6 @@
     <ClInclude Include="protobuf\offset.pb.h" />
     <ClInclude Include="protobuf\tissue.pb.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="protobuf\coord.proto" />
-    <None Include="protobuf\fusion.proto" />
-    <None Include="protobuf\haptic.proto" />
-    <None Include="protobuf\offset.proto" />
-    <None Include="protobuf\tissue.proto" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
