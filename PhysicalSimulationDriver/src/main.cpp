@@ -62,4 +62,67 @@ void output(const pb::FusionData::FusionData &fusion_data) {
 
 int main(const int argc, char **argv) {
 
+    eCAL::Initialize(argc, argv, "Fusion Publisher");
+    eCAL::Process::SetState(proc_sev_healthy, proc_sev_level1, "healthy");
+    eCAL::protobuf::CPublisher<pb::FusionData::FusionData> pub("FusionData");
+    pb::FusionData::FusionData fusion_data;
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dis_0_10(0.0, 10.0);
+    std::uniform_real_distribution<float> dis_330_360(330.0, 360.0);
+    std::uniform_real_distribution<float> dis_10_15(10.0, 15.0);
+
+    while (eCAL::Ok()) {
+#pragma region Send Data
+
+        fusion_data.mutable_endoscope_pos()->set_x(dis_0_10(gen));
+        fusion_data.mutable_endoscope_pos()->set_y(dis_0_10(gen));
+        fusion_data.mutable_endoscope_pos()->set_z(dis_0_10(gen));
+        fusion_data.mutable_endoscope_euler()->set_x(dis_330_360(gen));
+        fusion_data.mutable_endoscope_euler()->set_y(dis_10_15(gen));
+        fusion_data.mutable_endoscope_euler()->set_z(dis_10_15(gen));
+        fusion_data.mutable_tube_pos()->set_x(dis_0_10(gen));
+        fusion_data.mutable_tube_pos()->set_y(dis_0_10(gen));
+        fusion_data.mutable_tube_pos()->set_z(dis_0_10(gen));
+        fusion_data.mutable_tube_euler()->set_x(dis_330_360(gen));
+        fusion_data.mutable_tube_euler()->set_y(dis_10_15(gen));
+        fusion_data.mutable_tube_euler()->set_x(dis_10_15(gen));
+        fusion_data.mutable_offset()->set_endoscope_offset(-1);
+        fusion_data.mutable_offset()->set_tube_offset(-3);
+        fusion_data.mutable_offset()->set_instrument_switch(60);
+        fusion_data.mutable_offset()->set_animation_value(0.5);
+        fusion_data.mutable_offset()->set_pivot_offset(2);
+        fusion_data.mutable_rot_coord()->set_x(0);
+        fusion_data.mutable_rot_coord()->set_y(0.7071068f);
+        fusion_data.mutable_rot_coord()->set_z(0);
+        fusion_data.mutable_rot_coord()->set_w(0.7071068f);
+        fusion_data.mutable_pivot_pos()->set_x(-10);
+        fusion_data.mutable_pivot_pos()->set_y(4.9f);
+        fusion_data.mutable_pivot_pos()->set_z(-0.9f);
+        fusion_data.set_ablation_count(0);
+        fusion_data.mutable_haptic()->set_haptic_state(3);
+        fusion_data.mutable_haptic()->set_haptic_offset(-1);
+        fusion_data.mutable_haptic()->set_haptic_force(2);
+        fusion_data.set_hemostasis_count(0);
+        fusion_data.set_hemostasis_index(0);
+        fusion_data.mutable_soft_tissue()->set_liga_flavum(1);
+        fusion_data.mutable_soft_tissue()->set_disc_yellow_space(1);
+        fusion_data.mutable_soft_tissue()->set_veutro_vessel(1);
+        fusion_data.mutable_soft_tissue()->set_fat(1);
+        fusion_data.mutable_soft_tissue()->set_fibrous_rings(1);
+        fusion_data.mutable_soft_tissue()->set_nucleus_pulposus(1);
+        fusion_data.mutable_soft_tissue()->set_p_longitudinal_liga(1);
+        fusion_data.mutable_soft_tissue()->set_dura_mater(1);
+        fusion_data.mutable_soft_tissue()->set_nerve_root(1);
+        fusion_data.set_nerve_root_dance(0);
+        pub.Send(fusion_data);
+#pragma endregion
+        output(fusion_data);
+        //eCAL::Process::SleepMS(500);
+    }
+
+    eCAL::Finalize();
+
+    return 0;
 }

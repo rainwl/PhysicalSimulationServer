@@ -8,7 +8,19 @@ project(
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(PhysicalSimulationDriver src/main.cpp)
+add_executable(PhysicalSimulationDriver
+        src/main.cpp
+        protobuf/coord.pb.cc
+        protobuf/coord.pb.h
+        protobuf/fusion.pb.cc
+        protobuf/fusion.pb.h
+        protobuf/haptic.pb.cc
+        protobuf/haptic.pb.h
+        protobuf/offset.pb.cc
+        protobuf/offset.pb.h
+        protobuf/tissue.pb.cc
+        protobuf/tissue.pb.h
+)
 
 target_include_directories(PhysicalSimulationDriver PRIVATE include)
 target_include_directories(PhysicalSimulationDriver PRIVATE protobuf)
