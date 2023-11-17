@@ -7,6 +7,77 @@
 
 void output(const pb::FusionData::FusionData& fusion_data);
 
+void output(const pb::FusionData::FusionData& fusion_data) {
+  std::cout << std::left << std::setw(20) << "endoscope_pos"
+            << ": " << fusion_data.endoscope_pos().x() << ",";
+  std::cout << fusion_data.endoscope_pos().y() << ",";
+  std::cout << fusion_data.endoscope_pos().z() << "\n";
+  std::cout << std::left << std::setw(20) << "endoscope_euler"
+            << ": " << fusion_data.endoscope_euler().x() << ",";
+  std::cout << fusion_data.endoscope_euler().y() << ",";
+  std::cout << fusion_data.endoscope_euler().z() << "\n";
+  std::cout << std::left << std::setw(20) << "tube_pos"
+            << ": " << fusion_data.tube_pos().x() << ",";
+  std::cout << fusion_data.tube_pos().y() << ",";
+  std::cout << fusion_data.tube_pos().z() << "\n";
+  std::cout << std::left << std::setw(20) << "tube_euler"
+            << ": " << fusion_data.tube_euler().x() << ",";
+  std::cout << fusion_data.tube_euler().y() << ",";
+  std::cout << fusion_data.tube_euler().z() << "\n";
+  std::cout << std::left << std::setw(20) << "endoscope_offset"
+            << ": " << fusion_data.offset().endoscope_offset() << "\n";
+  std::cout << std::left << std::setw(20) << "tube_offset"
+            << ": " << fusion_data.offset().tube_offset() << "\n";
+  std::cout << std::left << std::setw(20) << "instrument_switch"
+            << ": " << fusion_data.offset().instrument_switch() << "\n";
+  std::cout << std::left << std::setw(20) << "animation_value"
+            << ": " << fusion_data.offset().animation_value() << "\n";
+  std::cout << std::left << std::setw(20) << "pivot_offset"
+            << ": " << fusion_data.offset().pivot_offset() << "\n";
+  std::cout << std::left << std::setw(20) << "rot_coordinate"
+            << ": " << fusion_data.rot_coord().x() << ",";
+  std::cout << fusion_data.rot_coord().y() << ",";
+  std::cout << fusion_data.rot_coord().z() << ",";
+  std::cout << fusion_data.rot_coord().w() << "\n";
+  std::cout << std::left << std::setw(20) << "pivot_pos"
+            << ": " << fusion_data.pivot_pos().x() << ",";
+  std::cout << fusion_data.pivot_pos().y() << ",";
+  std::cout << fusion_data.pivot_pos().z() << "\n";
+  std::cout << std::left << std::setw(20) << "ablation_count"
+            << ": " << fusion_data.ablation_count() << "\n";
+  std::cout << std::left << std::setw(20) << "haptic_state"
+            << ": " << fusion_data.haptic().haptic_state() << "\n";
+  std::cout << std::left << std::setw(20) << "haptic_offset"
+            << ": " << fusion_data.haptic().haptic_offset() << "\n";
+  std::cout << std::left << std::setw(20) << "haptic_force"
+            << ": " << fusion_data.haptic().haptic_force() << "\n";
+  std::cout << std::left << std::setw(20) << "hemostasis_count"
+            << ": " << fusion_data.hemostasis_count() << "\n";
+  std::cout << std::left << std::setw(20) << "hemostasis_index"
+            << ": " << fusion_data.hemostasis_index() << "\n";
+  std::cout << std::left << std::setw(20) << "liga_flavum"
+            << ": " << fusion_data.soft_tissue().liga_flavum() << "\n";
+  std::cout << std::left << std::setw(20) << "disc_yellow_space"
+            << ": " << fusion_data.soft_tissue().disc_yellow_space() << "\n";
+  std::cout << std::left << std::setw(20) << "veutro_vessel"
+            << ": " << fusion_data.soft_tissue().veutro_vessel() << "\n";
+  std::cout << std::left << std::setw(20) << "fat"
+            << ": " << fusion_data.soft_tissue().fat() << "\n";
+  std::cout << std::left << std::setw(20) << "fibrous_rings"
+            << ": " << fusion_data.soft_tissue().fibrous_rings() << "\n";
+  std::cout << std::left << std::setw(20) << "nucleus_pulposus"
+            << ": " << fusion_data.soft_tissue().nucleus_pulposus() << "\n";
+  std::cout << std::left << std::setw(20) << "p_longitudinal_liga"
+            << ": " << fusion_data.soft_tissue().p_longitudinal_liga() << "\n";
+  std::cout << std::left << std::setw(20) << "dura_mater"
+            << ": " << fusion_data.soft_tissue().dura_mater() << "\n";
+  std::cout << std::left << std::setw(20) << "nerve_root"
+            << ": " << fusion_data.soft_tissue().nerve_root() << "\n";
+  std::cout << std::left << std::setw(20) << "nerve_root_dance"
+            << ": " << fusion_data.nerve_root_dance() << "\n";
+  std::cout << "\n";
+}
+
 int main(const int argc, char** argv)
 {
 #pragma region eCAL init
@@ -88,49 +159,4 @@ int main(const int argc, char** argv)
 	eCAL::Finalize();
 
 	return 0;
-}
-
-void output(const pb::FusionData::FusionData& fusion_data)
-{
-	std::cout << std::left << std::setw(20) << "endoscope_pos" << ": " << fusion_data.endoscope_pos().x() << ",";
-	std::cout << fusion_data.endoscope_pos().y() << ",";
-	std::cout << fusion_data.endoscope_pos().z() << "\n";
-	std::cout << std::left << std::setw(20) << "endoscope_euler" << ": " << fusion_data.endoscope_euler().x() << ",";
-	std::cout << fusion_data.endoscope_euler().y() << ",";
-	std::cout << fusion_data.endoscope_euler().z() << "\n";
-	std::cout << std::left << std::setw(20) << "tube_pos" << ": " << fusion_data.tube_pos().x() << ",";
-	std::cout << fusion_data.tube_pos().y() << ",";
-	std::cout << fusion_data.tube_pos().z() << "\n";
-	std::cout << std::left << std::setw(20) << "tube_euler" << ": " << fusion_data.tube_euler().x() << ",";
-	std::cout << fusion_data.tube_euler().y() << ",";
-	std::cout << fusion_data.tube_euler().z() << "\n";
-	std::cout << std::left << std::setw(20) << "endoscope_offset" << ": " << fusion_data.offset().endoscope_offset() << "\n";
-	std::cout << std::left << std::setw(20) << "tube_offset" << ": " << fusion_data.offset().tube_offset() << "\n";
-	std::cout << std::left << std::setw(20) << "instrument_switch" << ": " << fusion_data.offset().instrument_switch() << "\n";
-	std::cout << std::left << std::setw(20) << "animation_value" << ": " << fusion_data.offset().animation_value() << "\n";
-	std::cout << std::left << std::setw(20) << "pivot_offset" << ": " << fusion_data.offset().pivot_offset() << "\n";
-	std::cout << std::left << std::setw(20) << "rot_coordinate" << ": " << fusion_data.rot_coord().x() << ",";
-	std::cout << fusion_data.rot_coord().y() << ",";
-	std::cout << fusion_data.rot_coord().z() << ",";
-	std::cout << fusion_data.rot_coord().w() << "\n";
-	std::cout << std::left << std::setw(20) << "pivot_pos" << ": " << fusion_data.pivot_pos().x() << ",";
-	std::cout << fusion_data.pivot_pos().y() << ",";
-	std::cout << fusion_data.pivot_pos().z() << "\n";
-	std::cout << std::left << std::setw(20) << "ablation_count" << ": " << fusion_data.ablation_count() << "\n";
-	std::cout << std::left << std::setw(20) << "haptic_state" << ": " << fusion_data.haptic().haptic_state() << "\n";
-	std::cout << std::left << std::setw(20) << "haptic_offset" << ": " << fusion_data.haptic().haptic_offset() << "\n";
-	std::cout << std::left << std::setw(20) << "haptic_force" << ": " << fusion_data.haptic().haptic_force() << "\n";
-	std::cout << std::left << std::setw(20) << "hemostasis_count" << ": " << fusion_data.hemostasis_count() << "\n";
-	std::cout << std::left << std::setw(20) << "hemostasis_index" << ": " << fusion_data.hemostasis_index() << "\n";
-	std::cout << std::left << std::setw(20) << "liga_flavum" << ": " << fusion_data.soft_tissue().liga_flavum() << "\n";
-	std::cout << std::left << std::setw(20) << "disc_yellow_space" << ": " << fusion_data.soft_tissue().disc_yellow_space() << "\n";
-	std::cout << std::left << std::setw(20) << "veutro_vessel" << ": " << fusion_data.soft_tissue().veutro_vessel() << "\n";
-	std::cout << std::left << std::setw(20) << "fat" << ": " << fusion_data.soft_tissue().fat() << "\n";
-	std::cout << std::left << std::setw(20) << "fibrous_rings" << ": " << fusion_data.soft_tissue().fibrous_rings() << "\n";
-	std::cout << std::left << std::setw(20) << "nucleus_pulposus" << ": " << fusion_data.soft_tissue().nucleus_pulposus() << "\n";
-	std::cout << std::left << std::setw(20) << "p_longitudinal_liga" << ": " << fusion_data.soft_tissue().p_longitudinal_liga() << "\n";
-	std::cout << std::left << std::setw(20) << "dura_mater" << ": " << fusion_data.soft_tissue().dura_mater() << "\n";
-	std::cout << std::left << std::setw(20) << "nerve_root" << ": " << fusion_data.soft_tissue().nerve_root() << "\n";
-	std::cout << std::left << std::setw(20) << "nerve_root_dance" << ": " << fusion_data.nerve_root_dance() << "\n";
-	std::cout << "\n";
 }

@@ -33,6 +33,9 @@
     <ClCompile Include="protobuf\tissue.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Geomagic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="protobuf\coord.pb.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="protobuf\tissue.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geomagic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

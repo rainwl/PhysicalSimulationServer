@@ -7,7 +7,8 @@ I use eCAL to replace shared memory,before this,I need to tidy all related items
 | item                                | status |
 |-------------------------------------|--------|
 | rename the protocol                 | done   |
-| rename `SerialPort` to `FusionData` |        |
+| rename `SerialPort` to `FusionData` | done   |
+| add send fusion data function       | done   |
 |                                     |        |
 
 ## Protocol item
@@ -20,7 +21,7 @@ shared memory item(old)
 
 ### FusionData
 
-Because in FleX,I have been created a `std::array<float,40>` in `SerialPort.h` to receive the values,so whatever the
+Because in FleX,I have been created a `std::array<float,40>` in `FusionData.h`(`old:SerialPort.h`) to receive the values,so whatever the
 value origin types are,
 all values should be passed using the `float` type.
 
