@@ -8,6 +8,11 @@ project(
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(PhysicalSimulationDriver include/main.cpp)
+add_executable(PhysicalSimulationDriver src/main.cpp)
 
 target_include_directories(PhysicalSimulationDriver PRIVATE include)
+target_include_directories(PhysicalSimulationDriver PRIVATE protobuf)
+#target_link_libraries(PhysicalSimulationDriver
+#        library/ecal_core.lib
+#        library/ecal_proto.lib
+#        library/libprotobuf.lib)
