@@ -5,3 +5,7 @@ PhysicalSimulationServer.vcxproj.user
 .idea/
 
 PhysicalSimulationServer/x64/Release/
+
+PhysicalSimulationDriver/cmake-build-debug/
+
+PhysicalSimulationDriver/cmake-build-release/
