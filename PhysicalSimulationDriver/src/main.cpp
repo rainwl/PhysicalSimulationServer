@@ -4,12 +4,10 @@
 #include "../protobuf/fusion.pb.h"
 #include "random"
 #include "iomanip"
+import Geomagic;
+
 
 void PrintAligned(const std::string &key, const auto &value);
-
-void PrintAligned(const std::string &key, const auto &value) {
-    std::cout << std::left << std::setw(20) << key << ": " << value << "\n";
-}
 
 void PrintAligned(const std::string &key, const auto &value1, const auto &value2, const auto &value3);
 
@@ -38,7 +36,7 @@ void output(const pb::FusionData::FusionData &fusion_data) {
     PrintAligned("instrument_switch", fusion_data.offset().instrument_switch());
     PrintAligned("animation_value", fusion_data.offset().animation_value());
     PrintAligned("pivot_offset", fusion_data.offset().pivot_offset());
-    PrintAligned("rot_coordinate", fusion_data.rot_coord().x(), fusion_data.rot_coord().y(),
+    PrintAligned("rot_coord", fusion_data.rot_coord().x(), fusion_data.rot_coord().y(),
                  fusion_data.rot_coord().z(), fusion_data.rot_coord().w());
     PrintAligned("pivot_pos", fusion_data.pivot_pos().x(), fusion_data.pivot_pos().y(), fusion_data.pivot_pos().z());
     PrintAligned("ablation_count", fusion_data.ablation_count());
@@ -60,19 +58,24 @@ void output(const pb::FusionData::FusionData &fusion_data) {
     std::cout << "\n";
 }
 
-int main(const int argc, char **argv) {
+void PrintAligned(const std::string &key, const auto &value) {
+    std::cout << std::left << std::setw(20) << key << ": " << value << "\n";
+}
 
+int main(const int argc, char **argv) {
+#pragma region eCAL init
     eCAL::Initialize(argc, argv, "Fusion Publisher");
     eCAL::Process::SetState(proc_sev_healthy, proc_sev_level1, "healthy");
     eCAL::protobuf::CPublisher<pb::FusionData::FusionData> pub("FusionData");
     pb::FusionData::FusionData fusion_data;
-
+#pragma endregion
+#pragma region random
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dis_0_10(0.0, 10.0);
     std::uniform_real_distribution<float> dis_330_360(330.0, 360.0);
     std::uniform_real_distribution<float> dis_10_15(10.0, 15.0);
-
+#pragma endregion
     while (eCAL::Ok()) {
 #pragma region Send Data
 

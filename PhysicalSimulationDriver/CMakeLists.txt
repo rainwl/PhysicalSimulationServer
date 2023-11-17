@@ -20,10 +20,14 @@ add_executable(PhysicalSimulationDriver
         protobuf/offset.pb.h
         protobuf/tissue.pb.cc
         protobuf/tissue.pb.h
+        src/Geomagic.cppm
+        core/vec3.h
+
 )
 
 target_include_directories(PhysicalSimulationDriver PRIVATE include)
 target_include_directories(PhysicalSimulationDriver PRIVATE protobuf)
+target_include_directories(PhysicalSimulationDriver PUBLIC core)
 
 find_library(ECAL_CORE NAMES ecal_core PATHS library)
 find_library(ECAL_PROTO NAMES ecal_proto PATHS library)
