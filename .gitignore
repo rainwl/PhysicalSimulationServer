@@ -9,3 +9,5 @@ PhysicalSimulationServer/x64/Release/
 PhysicalSimulationDriver/cmake-build-debug/
 
 PhysicalSimulationDriver/cmake-build-release/
+
+PhysicalSimulationDriver/cmake-build/
