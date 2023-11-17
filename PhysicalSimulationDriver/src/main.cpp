@@ -60,6 +60,6 @@ void output(const pb::FusionData::FusionData &fusion_data) {
     std::cout << "\n";
 }
 
-int main(const int argc, char** argv) {
+int main(const int argc, char **argv) {
 
 }

@@ -12,7 +12,18 @@ add_executable(PhysicalSimulationDriver src/main.cpp)
 
 target_include_directories(PhysicalSimulationDriver PRIVATE include)
 target_include_directories(PhysicalSimulationDriver PRIVATE protobuf)
-#target_link_libraries(PhysicalSimulationDriver
-#        library/ecal_core.lib
-#        library/ecal_proto.lib
-#        library/libprotobuf.lib)
+
+find_library(ECAL_CORE NAMES ecal_core PATHS library)
+find_library(ECAL_PROTO NAMES ecal_proto PATHS library)
+find_library(LIBPROTOBUF NAMES libprotobuf PATHS library)
+
+if (ECAL_CORE AND ECAL_PROTO AND LIBPROTOBUF)
+    target_link_libraries(PhysicalSimulationDriver
+            ${ECAL_LIB}
+            ${ECAL_PROTO}
+            ${LIBPROTOBUF}
+    )
+else ()
+    message(FATAL_ERROR "PSD can not find eCAL lib")
+endif ()
+

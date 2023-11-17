@@ -11,3 +11,5 @@ PhysicalSimulationDriver/cmake-build-debug/
 PhysicalSimulationDriver/cmake-build-release/
 
 PhysicalSimulationDriver/cmake-build/
+
+PhysicalSimulationDriver/cmake-build-release-visual-studio/
