@@ -13,7 +13,7 @@
 #include "vec3.h"
 
 class Haptic {
- public:
+public:
   explicit Haptic(const char *name);
 
   ~Haptic();
@@ -34,12 +34,14 @@ class Haptic {
   static bool is_scheduler_running;
   HHD hhd;
   std::vector<HDSchedulerHandle> hd_scheduler_handles;
+
   struct DeviceData {
     HDdouble angle1[3];
     HDdouble angle2[3];
     HDdouble transform[16];
     int button_state;
   };
+
   DeviceData haptic_data;
   DeviceData simulate_data;
   double max_input_fore_feedback;// Maximum input force allowed, considering security
@@ -51,11 +53,12 @@ class Haptic {
   bool is_using_DH_method;// Whether to use DH matrix multiplication method, if not, will directly use API to get pose
   Vec3 device_angle_1;
   Vec3 device_angle_2;
-  Vec3 device_offset_base;// Some dof angular offset of the device base
-  Vec3 device_offset_base_c;// Some Angular offset factor of the device base
-  Vec3 device_offset_stylus;// Some dof angular offset of the stylus
+  Vec3 device_offset_base;    // Some dof angular offset of the device base
+  Vec3 device_offset_base_c;  // Some Angular offset factor of the device base
+  Vec3 device_offset_stylus;  // Some dof angular offset of the stylus
   Vec3 device_offset_stylus_c;// Some Angular offset factor of the stylus;
 };
+
 HDerror CatchHdError(bool logError = true);
 
 HDCallbackCode HDCALLBACK StateCallBack(void *userData);

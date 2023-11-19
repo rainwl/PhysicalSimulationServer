@@ -12,9 +12,8 @@
 #include <HD/hdDevice.h>
 #include <HD/hdScheduler.h>
 
-Haptic::Haptic(const char *name) : device_name(std::string("Default")), device_base_pos(Vec3(0, 0, 0)) {
-  InitDevice();
-}
+Haptic::Haptic(const char *name)
+  : device_name(std::string("Default")), device_base_pos(Vec3(0, 0, 0)) { InitDevice(); }
 
 Haptic::~Haptic()
 = default;
@@ -58,7 +57,7 @@ void Haptic::InitDevice() {
   // Check the calibration of haptic
   if (hdCheckCalibration() != HD_CALIBRATION_OK) {
     std::cout << "GeomagicDriver initialization failed,because device [" << device_name
-              << "] has not been calibrated,Must be calibrated before simulation starts\n";
+        << "] has not been calibrated,Must be calibrated before simulation starts\n";
     return;
   }
 
@@ -92,7 +91,6 @@ void Haptic::InitDevice() {
     max_input_fore_feedback = 0.0;
   }
 
-
   // It will take a few microseconds for the scheduler to turn on better
   // and retrieve the correct device information before update()
   std::this_thread::sleep_for(std::chrono::milliseconds(42));
@@ -101,15 +99,11 @@ void Haptic::InitDevice() {
 
 void Haptic::SetHapticDeviceStatus(int *hapticStatus) {
   haptic_status = hapticStatus;
-  if (haptic_status && is_init_done) {
-    *haptic_status = 0;
-  }
+  if (haptic_status && is_init_done) { *haptic_status = 0; }
 }
 
 void Haptic::Initialize() {
-  if (is_left_hand_frame) {
-    device_base_pos.x = -device_base_pos.x;
-  }
+  if (is_left_hand_frame) { device_base_pos.x = -device_base_pos.x; }
   UpdatePosition();
   loop_thread = new std::thread(&Haptic::Loop, this);
 }
@@ -125,7 +119,7 @@ void Haptic::UpdatePosition() {
 
 void Haptic::Loop() const {
   while (true) {
-    if (!is_looping)break;
+    if (!is_looping) break;
     // TODO:There has some coupling with sofa scene,analyze how to solve it
   }
 }
@@ -135,15 +129,14 @@ HDerror CatchHdError(bool logError) {
   if (HD_DEVICE_ERROR(error = hdGetError())) {
     if (logError) {
       std::cout << "HDError:" << error.hHD << "returns error code" << error.errorCode << ":"
-                << hdGetErrorString(error.errorCode) << "\n";
+          << hdGetErrorString(error.errorCode) << "\n";
     }
     return error.errorCode;
   }
   return HD_SUCCESS;
 }
 
-HDCallbackCode HDCALLBACK StateCallBack(void *userData) {
-}
+HDCallbackCode HDCALLBACK StateCallBack(void *userData) {}
 
 HDCallbackCode HDCALLBACK CopyDeviceDataCallback(void *userData) {
   const auto driver = static_cast<Haptic *>(userData);

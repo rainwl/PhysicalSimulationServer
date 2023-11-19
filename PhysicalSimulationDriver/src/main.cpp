@@ -9,15 +9,11 @@ void PrintAligned(const std::string &key, const auto &value);
 
 void PrintAligned(const std::string &key, const auto &value1, const auto &value2, const auto &value3);
 
-void PrintAligned(const std::string &key, const auto &value1, const auto &value2, const auto &value3) {
-  std::cout << std::left << std::setw(20) << key << ": " << value1 << "," << value2 << "," << value3 << "\n";
-}
+void PrintAligned(const std::string &key, const auto &value1, const auto &value2, const auto &value3) { std::cout << std::left << std::setw(20) << key << ": " << value1 << "," << value2 << "," << value3 << "\n"; }
 
 void PrintAligned(const std::string &key, const auto &v1, const auto &v2, const auto &v3, const auto &v4);
 
-void PrintAligned(const std::string &key, const auto &v1, const auto &v2, const auto &v3, const auto &v4) {
-  std::cout << std::left << std::setw(20) << key << ": " << v1 << "," << v2 << "," << v3 << "," << v4 << "\n";
-}
+void PrintAligned(const std::string &key, const auto &v1, const auto &v2, const auto &v3, const auto &v4) { std::cout << std::left << std::setw(20) << key << ": " << v1 << "," << v2 << "," << v3 << "," << v4 << "\n"; }
 
 void output(const pb::FusionData::FusionData &fusion_data);
 
@@ -56,9 +52,7 @@ void output(const pb::FusionData::FusionData &fusion_data) {
   std::cout << "\n";
 }
 
-void PrintAligned(const std::string &key, const auto &value) {
-  std::cout << std::left << std::setw(20) << key << ": " << value << "\n";
-}
+void PrintAligned(const std::string &key, const auto &value) { std::cout << std::left << std::setw(20) << key << ": " << value << "\n"; }
 
 int main(const int argc, char **argv) {
 #pragma region eCAL init
