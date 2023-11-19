@@ -7,6 +7,8 @@
 
 void PrintAligned(const std::string &key, const auto &value);
 
+void PrintAligned(const std::string &key, const auto &value) { std::cout << std::left << std::setw(20) << key << ": " << value << "\n"; }
+
 void PrintAligned(const std::string &key, const auto &value1, const auto &value2, const auto &value3);
 
 void PrintAligned(const std::string &key, const auto &value1, const auto &value2, const auto &value3) { std::cout << std::left << std::setw(20) << key << ": " << value1 << "," << value2 << "," << value3 << "\n"; }
@@ -51,8 +53,6 @@ void output(const pb::FusionData::FusionData &fusion_data) {
   PrintAligned("nerve_root_dance", fusion_data.nerve_root_dance());
   std::cout << "\n";
 }
-
-void PrintAligned(const std::string &key, const auto &value) { std::cout << std::left << std::setw(20) << key << ": " << value << "\n"; }
 
 int main(const int argc, char **argv) {
 #pragma region eCAL init

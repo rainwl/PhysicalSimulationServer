@@ -23,11 +23,10 @@ add_executable(PhysicalSimulationDriver
         core/vec3.h
         src/Haptic.cpp
         src/Haptic.h
-
 )
 
-target_include_directories(PhysicalSimulationDriver PRIVATE include)
-target_include_directories(PhysicalSimulationDriver PRIVATE protobuf)
+target_include_directories(PhysicalSimulationDriver PUBLIC include)
+target_include_directories(PhysicalSimulationDriver PUBLIC protobuf)
 target_include_directories(PhysicalSimulationDriver PUBLIC core)
 
 find_library(ECAL_CORE NAMES ecal_core PATHS library)

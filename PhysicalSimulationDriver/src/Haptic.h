@@ -25,14 +25,14 @@ public:
 
   void Initialize();
 
-  void UpdatePosition();
+  void UpdatePosition() const;
 
   void Loop() const;
 
   std::string device_name;
   Vec3 device_base_pos;
   static bool is_scheduler_running;
-  HHD hhd;
+  HHD hhd{};
   std::vector<HDSchedulerHandle> hd_scheduler_handles;
 
   struct DeviceData {
@@ -42,15 +42,15 @@ public:
     int button_state;
   };
 
-  DeviceData haptic_data;
-  DeviceData simulate_data;
-  double max_input_fore_feedback;// Maximum input force allowed, considering security
+  DeviceData haptic_data{};
+  DeviceData simulate_data{};
+  double max_input_fore_feedback{};// Maximum input force allowed, considering security
   bool is_init_done = false;
   int *haptic_status = nullptr;
   bool is_left_hand_frame = false;
   std::thread *loop_thread = nullptr;
   bool is_looping = true;
-  bool is_using_DH_method;// Whether to use DH matrix multiplication method, if not, will directly use API to get pose
+  bool is_using_DH_method{};// Whether to use DH matrix multiplication method, if not, will directly use API to get pose
   Vec3 device_angle_1;
   Vec3 device_angle_2;
   Vec3 device_offset_base;    // Some dof angular offset of the device base
@@ -59,7 +59,7 @@ public:
   Vec3 device_offset_stylus_c;// Some Angular offset factor of the stylus;
 };
 
-HDerror CatchHdError(bool logError = true);
+HDerror CatchHdError(bool log_error = true);
 
 HDCallbackCode HDCALLBACK StateCallBack(void *userData);
 

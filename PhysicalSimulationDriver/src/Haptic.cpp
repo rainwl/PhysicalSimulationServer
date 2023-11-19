@@ -108,7 +108,7 @@ void Haptic::Initialize() {
   loop_thread = new std::thread(&Haptic::Loop, this);
 }
 
-void Haptic::UpdatePosition() {
+void Haptic::UpdatePosition() const {
   if (is_using_DH_method) {
     // TODO:DH method
   } else {
@@ -124,10 +124,9 @@ void Haptic::Loop() const {
   }
 }
 
-HDerror CatchHdError(bool logError) {
-  HDErrorInfo error;
-  if (HD_DEVICE_ERROR(error = hdGetError())) {
-    if (logError) {
+HDerror CatchHdError(const bool log_error) {
+  if (HDErrorInfo error; HD_DEVICE_ERROR(error = hdGetError())) {
+    if (log_error) {
       std::cout << "HDError:" << error.hHD << "returns error code" << error.errorCode << ":"
           << hdGetErrorString(error.errorCode) << "\n";
     }
@@ -136,7 +135,9 @@ HDerror CatchHdError(bool logError) {
   return HD_SUCCESS;
 }
 
-HDCallbackCode HDCALLBACK StateCallBack(void *userData) {}
+HDCallbackCode HDCALLBACK StateCallBack(void *userData) {
+  return HD_CALLBACK_CONTINUE;
+}
 
 HDCallbackCode HDCALLBACK CopyDeviceDataCallback(void *userData) {
   const auto driver = static_cast<Haptic *>(userData);
