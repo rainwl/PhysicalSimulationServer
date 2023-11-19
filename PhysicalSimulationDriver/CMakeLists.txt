@@ -20,8 +20,9 @@ add_executable(PhysicalSimulationDriver
         protobuf/offset.pb.h
         protobuf/tissue.pb.cc
         protobuf/tissue.pb.h
-        src/Geomagic.cppm
         core/vec3.h
+        src/Haptic.cpp
+        src/Haptic.h
 
 )
 
