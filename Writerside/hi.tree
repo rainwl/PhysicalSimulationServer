@@ -10,4 +10,7 @@
     <toc-element topic="Protocol.md"/>
     <toc-element topic="Modules.md"/>
     <toc-element topic="Proto-files.md"/>
+    <toc-element topic="Code-analysis.md"/>
+    <toc-element topic="Pure-Soft-Simulation.md"/>
+    <toc-element topic="Pure-Rigid-Simulation.md"/>
 </instance-profile>
