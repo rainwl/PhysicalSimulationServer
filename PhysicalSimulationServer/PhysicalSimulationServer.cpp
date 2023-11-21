@@ -154,7 +154,7 @@ int main(const int argc, char** argv)
 #pragma endregion
 
 		output(fusion_data);
-		//eCAL::Process::SleepMS(500);
+		eCAL::Process::SleepMS(20);
 	}
 	eCAL::Finalize();
 
