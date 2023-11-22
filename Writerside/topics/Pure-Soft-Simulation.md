@@ -2,29 +2,32 @@
 
 ## TODO
 
-|    | issue                                                                                                                                                  | status            | desc                                                                  |
-|----|--------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|-----------------------------------------------------------------------|
-| 0  | Data-driven `instruments` transform                                                                                                                    | [done](#0)        |                                                                       |
-| 1  | Comb software simulation logic                                                                                                                         |                   |                                                                       |
-| 2  | Where are the instruments `loaded`                                                                                                                     | [done](#2)        | shift F12 to look every ins.                                          |
-| 3  | Search m_posDevice in tube.h                                                                                                                           | [done](#3)        |                                                                       |
-| 4  | tool_data add &                                                                                                                                        | [done](#4)        | cause crash                                                           |
-| 5  | Add lock for tool_data                                                                                                                                 | [done](#5)        | Race conditions and errors, proper synchronization and thread safety. |
-| 6  | change visual for pliers                                                                                                                               | [done](#6)        |                                                                       |
-| 7  | Remove SOFA tick in Geomagic                                                                                                                           | [done](#7)        |                                                                       |
-| 8  | Analyze the performance footprint                                                                                                                      | [done](#8)        |                                                                       |
-| 9  | In tube.h::Initialize(),remove shared memory                                                                                                           |                   |                                                                       |
-| 10 | In InstrumentSwitch.h::Initialize,remove the sofa                                                                                                      |                   |                                                                       |
-| 11 | sofa_scene->Tick() and BeforeTick() does what?                                                                                                         |                   |                                                                       |
-| 12 | lock once ,when write 40 float to array                                                                                                                | [done](#12)       |                                                                       |
-| 13 | take a look about ablationCatheter and Rongeur                                                                                                         |                   |                                                                       |
-| 14 | complete instrument driven                                                                                                                             |                   |                                                                       |
-| 15 | Ensure that the transform of the instrument (sleeve, etc.) is completely driven by the sensor, and does not undergo coupling calculation such as SOFA. |                   |                                                                       |
-| 16 | AblationCatheter 's transform from where? Is it from SOFA? Pass to Unity?                                                                              |                   |                                                                       |
-| 17 | Take a look of ablationCatheter,in sofa,how its transform has been computed?                                                                           |                   |                                                                       |
-| 18 | A careful look at the pliers script, which involves software tearing, is very important                                                                |                   |                                                                       |
-| 19 | How to control rongeur trans and motion                                                                                                                |                   |                                                                       |
-| 20 | Do a test for delay                                                                                                                                    | [processing](#20) |                                                                       |
+|    | issue                                                                                         | status            | desc                                                                  |
+|----|-----------------------------------------------------------------------------------------------|-------------------|-----------------------------------------------------------------------|
+| 0  | Data-driven `instruments` transform                                                           | [done](#0)        |                                                                       |
+| 1  | Comb software simulation logic                                                                |                   |                                                                       |
+| 2  | Where are the instruments `loaded`                                                            | [done](#2)        | shift F12 to look every ins.                                          |
+| 3  | Search m_posDevice in tube.h                                                                  | [done](#3)        |                                                                       |
+| 4  | tool_data add &                                                                               | [done](#4)        | cause crash                                                           |
+| 5  | Add lock for tool_data                                                                        | [done](#5)        | Race conditions and errors, proper synchronization and thread safety. |
+| 6  | change visual for pliers                                                                      | [done](#6)        |                                                                       |
+| 7  | Remove SOFA tick in Geomagic                                                                  | [done](#7)        |                                                                       |
+| 8  | Analyze the performance footprint                                                             | [done](#8)        |                                                                       |
+| 9  | In tube.h::Initialize(),remove shared memory                                                  |                   |                                                                       |
+| 10 | In InstrumentSwitch.h::Initialize,remove the sofa                                             |                   |                                                                       |
+| 11 | sofa_scene->Tick() and BeforeTick() does what?                                                |                   |                                                                       |
+| 12 | lock once ,when write 40 float to array                                                       | [done](#12)       |                                                                       |
+| 13 | take a look about ablationCatheter and Rongeur                                                |                   |                                                                       |
+| 14 | complete instrument driven                                                                    |                   |                                                                       |
+| 15 | Ensure that the transform of the instrument (sleeve, etc.) is completely driven by the sensor |                   |                                                                       |
+| 16 | AblationCatheter 's transform from where? Is it from SOFA? Pass to Unity?                     |                   |                                                                       |
+| 17 | Take a look of ablationCatheter,in sofa,how its transform has been computed?                  |                   |                                                                       |
+| 18 | A careful look at the pliers script, which involves software tearing, is very important       |                   |                                                                       |
+| 19 | How to control rongeur trans and motion                                                       |                   |                                                                       |
+| 20 | Do a test for delay                                                                           | [processing](#20) |                                                                       |
+| 21 | eCAL loop in update(rec)                                                                      |                   |                                                                       |
+| 22 | remove eCAL::OK,pub sub put in main thread.                                                   |                   |                                                                       |
+| 23 |                                                                                               |                   |                                                                       |
 
 ## Issues
 
