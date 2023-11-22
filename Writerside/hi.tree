@@ -13,4 +13,5 @@
     <toc-element topic="Protocol.md"/>
     <toc-element topic="SharedMemory.md"/>
     <toc-element topic="Proto-files.md"/>
+    <toc-element topic="eCAL-performance-measure.md"/>
 </instance-profile>
