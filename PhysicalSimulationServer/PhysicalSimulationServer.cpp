@@ -1,9 +1,10 @@
-#include <iostream>
 #include <ecal/ecal.h>
 #include <ecal/msg/protobuf/publisher.h>
 #include <fusion.pb.h>
-#include <random>
+
 #include <iomanip>
+#include <iostream>
+#include <random>
 
 void output(const pb::FusionData::FusionData& fusion_data);
 
@@ -78,85 +79,136 @@ void output(const pb::FusionData::FusionData& fusion_data) {
   std::cout << "\n";
 }
 
-int main(const int argc, char** argv)
-{
+int main(const int argc, char** argv) {
 #pragma region eCAL init
-	eCAL::Initialize(argc, argv, "Fusion Publisher");
-	eCAL::Process::SetState(proc_sev_healthy, proc_sev_level1, "healthy");
-	eCAL::protobuf::CPublisher<pb::FusionData::FusionData> pub("FusionData");
-	pb::FusionData::FusionData fusion_data;
+  eCAL::Initialize(argc, argv, "Fusion Publisher");
+  eCAL::Process::SetState(proc_sev_healthy, proc_sev_level1, "healthy");
+  eCAL::CPublisher publisher("blob");
+  std::vector<float> s_data;    
+
+  // eCAL::protobuf::CPublisher<pb::FusionData::FusionData> pub("FusionData");
+  // pb::FusionData::FusionData fusion_data;
 #pragma endregion
 
 #pragma region Random
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<float> dis_0_10(0.0, 10.0);
-	std::uniform_real_distribution<float> dis_330_360(330.0, 360.0);
-	std::uniform_real_distribution<float> dis_10_15(10.0, 15.0);
+  // std::random_device rd;
+  // std::mt19937 gen(rd());
+  // std::uniform_real_distribution<float> dis_0_10(0.0, 10.0);
+  // std::uniform_real_distribution<float> dis_330_360(330.0, 360.0);
+  // std::uniform_real_distribution<float> dis_10_15(10.0, 15.0);
+
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_real_distribution<float> dis_0_10(0.0, 10.0);
+  std::uniform_real_distribution<float> dis_330_360(330.0, 360.0);
+  std::uniform_real_distribution<float> dis_10_15(10.0, 15.0);
 #pragma endregion
 
-	while (eCAL::Ok())
-	{
-#pragma region Send Data
+  while (eCAL::Ok()) {
+    // #pragma region Send Data
+    //
+    //     fusion_data.mutable_endoscope_pos()->set_x(dis_0_10(gen));
+    //     fusion_data.mutable_endoscope_pos()->set_y(dis_0_10(gen));
+    //     fusion_data.mutable_endoscope_pos()->set_z(dis_0_10(gen));
+    //
+    //     fusion_data.mutable_endoscope_euler()->set_x(dis_330_360(gen));
+    //     fusion_data.mutable_endoscope_euler()->set_y(dis_10_15(gen));
+    //     fusion_data.mutable_endoscope_euler()->set_z(dis_10_15(gen));
+    //
+    //     fusion_data.mutable_tube_pos()->set_x(dis_0_10(gen));
+    //     fusion_data.mutable_tube_pos()->set_y(dis_0_10(gen));
+    //     fusion_data.mutable_tube_pos()->set_z(dis_0_10(gen));
+    //
+    //     fusion_data.mutable_tube_euler()->set_x(dis_330_360(gen));
+    //     fusion_data.mutable_tube_euler()->set_y(dis_10_15(gen));
+    //     fusion_data.mutable_tube_euler()->set_x(dis_10_15(gen));
+    //
+    //     fusion_data.mutable_offset()->set_endoscope_offset(-1);
+    //     fusion_data.mutable_offset()->set_tube_offset(-3);
+    //     fusion_data.mutable_offset()->set_instrument_switch(60);
+    //     fusion_data.mutable_offset()->set_animation_value(0.5);
+    //     fusion_data.mutable_offset()->set_pivot_offset(2);
+    //
+    //     fusion_data.mutable_rot_coord()->set_x(0);
+    //     fusion_data.mutable_rot_coord()->set_y(0.7071068f);
+    //     fusion_data.mutable_rot_coord()->set_z(0);
+    //     fusion_data.mutable_rot_coord()->set_w(0.7071068f);
+    //
+    //     fusion_data.mutable_pivot_pos()->set_x(-10);
+    //     fusion_data.mutable_pivot_pos()->set_y(4.9f);
+    //     fusion_data.mutable_pivot_pos()->set_z(-0.9f);
+    //
+    //     fusion_data.set_ablation_count(0);
+    //
+    //     fusion_data.mutable_haptic()->set_haptic_state(3);
+    //     fusion_data.mutable_haptic()->set_haptic_offset(-1);
+    //     fusion_data.mutable_haptic()->set_haptic_force(2);
+    //
+    //     fusion_data.set_hemostasis_count(0);
+    //     fusion_data.set_hemostasis_index(0);
+    //
+    //     fusion_data.mutable_soft_tissue()->set_liga_flavum(1);
+    //     fusion_data.mutable_soft_tissue()->set_disc_yellow_space(1);
+    //     fusion_data.mutable_soft_tissue()->set_veutro_vessel(1);
+    //     fusion_data.mutable_soft_tissue()->set_fat(1);
+    //     fusion_data.mutable_soft_tissue()->set_fibrous_rings(1);
+    //     fusion_data.mutable_soft_tissue()->set_nucleus_pulposus(1);
+    //     fusion_data.mutable_soft_tissue()->set_p_longitudinal_liga(1);
+    //     fusion_data.mutable_soft_tissue()->set_dura_mater(1);
+    //     fusion_data.mutable_soft_tissue()->set_nerve_root(1);
+    //
+    //     fusion_data.set_nerve_root_dance(0);
+    //     pub.Send(fusion_data);
+    // #pragma endregion
+    //
+    //     output(fusion_data);
+    s_data.clear();
+    s_data.push_back(dis_0_10(gen));
+    s_data.push_back(dis_0_10(gen));
+    s_data.push_back(dis_0_10(gen));
+    s_data.push_back(dis_330_360(gen));
+    s_data.push_back(dis_10_15(gen));
+    s_data.push_back(dis_10_15(gen));
+    s_data.push_back(dis_0_10(gen));
+    s_data.push_back(dis_0_10(gen));
+    s_data.push_back(dis_0_10(gen));
+    s_data.push_back(dis_330_360(gen));
+    s_data.push_back(dis_10_15(gen));
+    s_data.push_back(dis_10_15(gen));
+    s_data.push_back(-1);
+    s_data.push_back(-3);
+    s_data.push_back(60);
+    s_data.push_back(0.5);
+    s_data.push_back(2);
+    s_data.push_back(0);
+    s_data.push_back(0.707106f);
+    s_data.push_back(0);
+    s_data.push_back(0.707106f);
+    s_data.push_back(-10);
+    s_data.push_back(4.9f);
+    s_data.push_back(-0.9f);
+    s_data.push_back(0);
+    s_data.push_back(3);
+    s_data.push_back(-1);
+    s_data.push_back(2);
+    s_data.push_back(0);
+    s_data.push_back(0);
+    s_data.push_back(1);
+    s_data.push_back(1);
+    s_data.push_back(1);
+    s_data.push_back(1);
+    s_data.push_back(1);
+    s_data.push_back(1);
+    s_data.push_back(1);
+    s_data.push_back(1);
+    s_data.push_back(1);
+    s_data.push_back(0);
 
-		fusion_data.mutable_endoscope_pos()->set_x(dis_0_10(gen));
-		fusion_data.mutable_endoscope_pos()->set_y(dis_0_10(gen));
-		fusion_data.mutable_endoscope_pos()->set_z(dis_0_10(gen));
+    publisher.Send(s_data.data(), s_data.size());
 
-		fusion_data.mutable_endoscope_euler()->set_x(dis_330_360(gen));
-		fusion_data.mutable_endoscope_euler()->set_y(dis_10_15(gen));
-		fusion_data.mutable_endoscope_euler()->set_z(dis_10_15(gen));
+    // eCAL::Process::SleepMS(20);
+  }
+  eCAL::Finalize();
 
-		fusion_data.mutable_tube_pos()->set_x(dis_0_10(gen));
-		fusion_data.mutable_tube_pos()->set_y(dis_0_10(gen));
-		fusion_data.mutable_tube_pos()->set_z(dis_0_10(gen));
-
-		fusion_data.mutable_tube_euler()->set_x(dis_330_360(gen));
-		fusion_data.mutable_tube_euler()->set_y(dis_10_15(gen));
-		fusion_data.mutable_tube_euler()->set_x(dis_10_15(gen));
-
-		fusion_data.mutable_offset()->set_endoscope_offset(-1);
-		fusion_data.mutable_offset()->set_tube_offset(-3);
-		fusion_data.mutable_offset()->set_instrument_switch(60);
-		fusion_data.mutable_offset()->set_animation_value(0.5);
-		fusion_data.mutable_offset()->set_pivot_offset(2);
-
-		fusion_data.mutable_rot_coord()->set_x(0);
-		fusion_data.mutable_rot_coord()->set_y(0.7071068f);
-		fusion_data.mutable_rot_coord()->set_z(0);
-		fusion_data.mutable_rot_coord()->set_w(0.7071068f);
-
-		fusion_data.mutable_pivot_pos()->set_x(-10);
-		fusion_data.mutable_pivot_pos()->set_y(4.9f);
-		fusion_data.mutable_pivot_pos()->set_z(-0.9f);
-
-		fusion_data.set_ablation_count(0);
-
-		fusion_data.mutable_haptic()->set_haptic_state(3);
-		fusion_data.mutable_haptic()->set_haptic_offset(-1);
-		fusion_data.mutable_haptic()->set_haptic_force(2);
-
-		fusion_data.set_hemostasis_count(0);
-		fusion_data.set_hemostasis_index(0);
-
-		fusion_data.mutable_soft_tissue()->set_liga_flavum(1);
-		fusion_data.mutable_soft_tissue()->set_disc_yellow_space(1);
-		fusion_data.mutable_soft_tissue()->set_veutro_vessel(1);
-		fusion_data.mutable_soft_tissue()->set_fat(1);
-		fusion_data.mutable_soft_tissue()->set_fibrous_rings(1);
-		fusion_data.mutable_soft_tissue()->set_nucleus_pulposus(1);
-		fusion_data.mutable_soft_tissue()->set_p_longitudinal_liga(1);
-		fusion_data.mutable_soft_tissue()->set_dura_mater(1);
-		fusion_data.mutable_soft_tissue()->set_nerve_root(1);
-
-		fusion_data.set_nerve_root_dance(0);
-		pub.Send(fusion_data);
-#pragma endregion
-
-		output(fusion_data);
-		eCAL::Process::SleepMS(20);
-	}
-	eCAL::Finalize();
-
-	return 0;
+  return 0;
 }
