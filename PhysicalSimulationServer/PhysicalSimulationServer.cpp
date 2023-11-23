@@ -7,6 +7,7 @@
 
 int count{0};
 std::vector<float> data;
+pb::FusionData::FusionData fusion_data;
 
 int main(const int argc, char **argv) {
 #pragma region eCAL init
@@ -24,53 +25,66 @@ int main(const int argc, char **argv) {
 #pragma endregion
 
   while (eCAL::Ok()) {
-    count++;
+#pragma region mutable_ set_
+    fusion_data.mutable_endoscope_pos()->set_x(dis_0_10(gen));
+    fusion_data.mutable_endoscope_pos()->set_y(dis_0_10(gen));
+    fusion_data.mutable_endoscope_pos()->set_z(dis_0_10(gen));
 
-    data.clear();
-    data.push_back(dis_0_10(gen));
-    data.push_back(dis_0_10(gen));
-    data.push_back(dis_0_10(gen));
-    data.push_back(dis_330_360(gen));
-    data.push_back(dis_10_15(gen));
-    data.push_back(dis_10_15(gen));
-    data.push_back(dis_0_10(gen));
-    data.push_back(dis_0_10(gen));
-    data.push_back(dis_0_10(gen));
-    data.push_back(dis_330_360(gen));
-    data.push_back(dis_10_15(gen));
-    data.push_back(dis_10_15(gen));
-    data.push_back(-1);
-    data.push_back(-3);
-    data.push_back(60);
-    data.push_back(0.5);
-    data.push_back(2);
-    data.push_back(0);
-    data.push_back(0.707106f);
-    data.push_back(0);
-    data.push_back(0.707106f);
-    data.push_back(-10);
-    data.push_back(4.9f);
-    data.push_back(-0.9f);
-    data.push_back(0);
-    data.push_back(3);
-    data.push_back(-1);
-    data.push_back(2);
-    data.push_back(0);
-    data.push_back(0);
-    data.push_back(1);
-    data.push_back(1);
-    data.push_back(1);
-    data.push_back(1);
-    data.push_back(1);
-    data.push_back(1);
-    data.push_back(1);
-    data.push_back(1);
-    data.push_back(1);
-    data.push_back(0);
+    fusion_data.mutable_endoscope_euler()->set_x(dis_330_360(gen));
+    fusion_data.mutable_endoscope_euler()->set_y(dis_10_15(gen));
+    fusion_data.mutable_endoscope_euler()->set_z(dis_10_15(gen));
 
-    publisher.Send(data.data(), data.size());
+    fusion_data.mutable_tube_pos()->set_x(dis_0_10(gen));
+    fusion_data.mutable_tube_pos()->set_y(dis_0_10(gen));
+    fusion_data.mutable_tube_pos()->set_z(dis_0_10(gen));
 
-    std::cout << count << "\n";
+    fusion_data.mutable_tube_euler()->set_x(dis_330_360(gen));
+    fusion_data.mutable_tube_euler()->set_y(dis_10_15(gen));
+    fusion_data.mutable_tube_euler()->set_x(dis_10_15(gen));
+
+    fusion_data.mutable_offset()->set_endoscope_offset(-1);
+    fusion_data.mutable_offset()->set_tube_offset(-3);
+    fusion_data.mutable_offset()->set_instrument_switch(60);
+    fusion_data.mutable_offset()->set_animation_value(0.5);
+    fusion_data.mutable_offset()->set_pivot_offset(2);
+
+    fusion_data.mutable_rot_coord()->set_x(0);
+    fusion_data.mutable_rot_coord()->set_y(0.7071068f);
+    fusion_data.mutable_rot_coord()->set_z(0);
+    fusion_data.mutable_rot_coord()->set_w(0.7071068f);
+
+    fusion_data.mutable_pivot_pos()->set_x(-10);
+    fusion_data.mutable_pivot_pos()->set_y(4.9f);
+    fusion_data.mutable_pivot_pos()->set_z(-0.9f);
+
+    fusion_data.set_ablation_count(0);
+
+    fusion_data.mutable_haptic()->set_haptic_state(3);
+    fusion_data.mutable_haptic()->set_haptic_offset(-1);
+    fusion_data.mutable_haptic()->set_haptic_force(2);
+
+    fusion_data.set_hemostasis_count(0);
+    fusion_data.set_hemostasis_index(0);
+
+    fusion_data.mutable_soft_tissue()->set_liga_flavum(1);
+    fusion_data.mutable_soft_tissue()->set_disc_yellow_space(1);
+    fusion_data.mutable_soft_tissue()->set_veutro_vessel(1);
+    fusion_data.mutable_soft_tissue()->set_fat(1);
+    fusion_data.mutable_soft_tissue()->set_fibrous_rings(1);
+    fusion_data.mutable_soft_tissue()->set_nucleus_pulposus(1);
+    fusion_data.mutable_soft_tissue()->set_p_longitudinal_liga(1);
+    fusion_data.mutable_soft_tissue()->set_dura_mater(1);
+    fusion_data.mutable_soft_tissue()->set_nerve_root(1);
+
+    fusion_data.set_nerve_root_dance(0);
+#pragma endregion
+    const int data_size = fusion_data.ByteSizeLong();// NOLINT(clang-diagnostic-shorten-64-to-32, bugprone-narrowing-conversions, cppcoreguidelines-narrowing-conversions)
+    auto data = std::make_unique<uint8_t[]>(data_size);  // NOLINT(clang-diagnostic-shadow)
+    fusion_data.SerializePartialToArray(data.get(), data_size);
+
+    const int code = publisher.Send(data.get(), data_size);// NOLINT(clang-diagnostic-shorten-64-to-32, bugprone-narrowing-conversions, cppcoreguidelines-narrowing-conversions)
+    if (code != data_size) { std::cout << "failure\n"; }
+
     // eCAL::Process::SleepMS(20);
   }
 
