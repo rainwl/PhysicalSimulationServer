@@ -1,44 +1,39 @@
-# Pure Soft Simulation
+# Soft Simulation
 
 ## TODO
 
-|    | issue                                                                                         | status            | desc                                                                  |
-|----|-----------------------------------------------------------------------------------------------|-------------------|-----------------------------------------------------------------------|
-| 0  | Data-driven `instruments` transform                                                           | [done](#0)        |                                                                       |
-| 1  | Comb software simulation logic                                                                |                   |                                                                       |
-| 2  | Where are the instruments `loaded`                                                            | [done](#2)        | shift F12 to look every ins.                                          |
-| 3  | Search m_posDevice in tube.h                                                                  | [done](#3)        |                                                                       |
-| 4  | tool_data add &                                                                               | [done](#4)        | cause crash                                                           |
-| 5  | Add lock for tool_data                                                                        | [done](#5)        | Race conditions and errors, proper synchronization and thread safety. |
-| 6  | change visual for pliers                                                                      | [done](#6)        |                                                                       |
-| 7  | Remove SOFA tick in Geomagic                                                                  | [done](#7)        |                                                                       |
-| 8  | Analyze the performance footprint                                                             | [done](#8)        |                                                                       |
-| 9  | In tube.h::Initialize(),remove shared memory                                                  |                   |                                                                       |
-| 10 | In InstrumentSwitch.h::Initialize,remove the sofa                                             |                   |                                                                       |
-| 11 | sofa_scene->Tick() and BeforeTick() does what?                                                |                   |                                                                       |
-| 12 | lock once ,when write 40 float to array                                                       | [done](#12)       |                                                                       |
-| 13 | take a look about ablationCatheter and Rongeur                                                |                   |                                                                       |
-| 14 | complete instrument driven                                                                    |                   |                                                                       |
-| 15 | Ensure that the transform of the instrument (sleeve, etc.) is completely driven by the sensor |                   |                                                                       |
-| 16 | AblationCatheter 's transform from where? Is it from SOFA? Pass to Unity?                     |                   |                                                                       |
-| 17 | Take a look of ablationCatheter,in sofa,how its transform has been computed?                  |                   |                                                                       |
-| 18 | A careful look at the pliers script, which involves software tearing, is very important       |                   |                                                                       |
-| 19 | How to control rongeur trans and motion                                                       |                   |                                                                       |
-| 20 | Do a test for delay                                                                           | [processing](#20) |                                                                       |
-| 21 | eCAL loop in update(rec)                                                                      |                   |                                                                       |
-| 22 | remove eCAL::OK,pub sub put in main thread.                                                   |                   |                                                                       |
-| 23 |                                                                                               |                   |                                                                       |
+|    | **issue**                                                                                     | **status**  | desc |
+|----|-----------------------------------------------------------------------------------------------|-------------|------|
+| 0  | ~~Data-driven `instruments` transform~~                                                       | [done](#0)  |      |
+| 1  | Organize software simulation logic                                                            | processing  |      |
+| 2  | ~~Instruments `loaded`~~                                                                      | [done](#2)  |      |
+| 3  | ~~Search m_posDevice in tube.h~~                                                              | [done](#3)  |      |
+| 4  | ~~tool_data add &~~                                                                           | [done](#4)  |      |
+| 5  | ~~Add lock for tool_data~~                                                                    | [done](#5)  |      |
+| 6  | ~~change visual for pliers~~                                                                  | [done](#6)  |      |
+| 7  | ~~Remove SOFA tick in Geomagic~~                                                              | [done](#7)  |      |
+| 8  | ~~Analyze the performance footprint~~                                                         | [done](#8)  |      |
+| 9  | ~~In tube.h::Initialize(),remove shared memory~~                                              | done        |      |
+| 10 | In InstrumentSwitch.h::Initialize,remove the sofa                                             |             |      |
+| 11 | sofa_scene->Tick() and BeforeTick() does what?                                                |             |      |
+| 12 | ~~lock once ,when write 40 float to array~~                                                   | [done](#12) |      |
+| 13 | take a look about ablationCatheter and Rongeur                                                |             |      |
+| 14 | complete instrument driven                                                                    |             |      |
+| 15 | Ensure that the transform of the instrument (sleeve, etc.) is completely driven by the sensor |             |      |
+| 16 | AblationCatheter 's transform from where? Is it from SOFA? Pass to Unity?                     |             |      |
+| 17 | Take a look of ablationCatheter,in sofa,how its transform has been computed?                  |             |      |
+| 18 | A careful look at the pliers script, which involves software tearing, is very important       |             |      |
+| 19 | How to control rongeur trans and motion                                                       |             |      |
+| 20 | ~~Do a test for delay~~                                                                       | [done](#20) |      |
+| 21 | ~~eCAL loop in update(rec)~~                                                                  | [done](#21) |      |
+| 22 | remove eCAL::OK,pub sub put in main thread.                                                   |             |      |
+| 23 | The sequence of open Simulate Server and Flex has different perform                           |             |      |
+| 24 | Tidy all shared memory between FleX and Unity                                                 |             |      |
+| 25 | The tube direction is random every time.(bin) Does it have anything to do with not locking it |             |      |
 
 ## Issues
 
-### 2
-
-Where are the instruments loaded
-: SpineEndoscope::Initialize()
-: InstrumentSwitch::Initialize()
-: m_tube->Initialize();
-
-### 0
+### 0 {collapsible="true"}
 
 `m_actualPos` and `m_actualRot` are values controlled motion of instruments.
 
@@ -75,13 +70,14 @@ Updated these two `values` in `GetToolData`
   }
 ```
 
-### 4
+### 2 {collapsible="true"}
 
-All assignments are done through shared memory addresses, with no additional memory copy.
+Where are the instruments loaded
+: SpineEndoscope::Initialize()
+: InstrumentSwitch::Initialize()
+: m_tube->Initialize();
 
-![](tool_data.png)
-
-### 3
+### 3 {collapsible="true"}
 
 ![](sofaposdevice.png)
 
@@ -91,7 +87,29 @@ In `Instrument.h`,defines the `m_posDevice`
 Matrix44 *m_posDevice = nullptr;
 ```
 
-### 7
+### 4 {collapsible="true"}
+
+cause crash
+
+All assignments are done through shared memory addresses, with no additional memory copy.
+
+![](tool_data.png)
+
+### 5 {collapsible="true"}
+
+Race conditions and errors, proper synchronization and thread safety.
+
+`commit SHA`
+
+47b6e540176bc667292196910dfd944b74b01a14
+
+### 6 {collapsible="true"}
+
+```C++
+geo_magic->d_frameVisu = false;
+```
+
+### 7 {collapsible="true"}
 
 Remove the sofa tick
 
@@ -114,19 +132,7 @@ Remove the sofa tick
   }
 ```
 
-### 6
-
-```C++
-geo_magic->d_frameVisu = false;
-```
-
-### 5
-
-`commit SHA`
-
-47b6e540176bc667292196910dfd944b74b01a14
-
-### 8
+### 8 {collapsible="true"}
 
 The main performance footprint is caused by eCAL
 
@@ -134,15 +140,17 @@ The main performance footprint is caused by eCAL
 
 ![2](ana2.png)
 
-### 12
+### 12 {collapsible="true"}
 
 `frame time`:24.3ms
 
 9f19378482a8482b3e11a597caa631d96389a083
 
-### 20
+### 20 {collapsible="true"}
 
-先把oht的性能优化的代码合并上来,然后看静息占用,开着publisher的占用,是否还是24
+[analyze](eCAL-performance-measure.md)
 
-岳博的意思是怀疑器械动起来以后,刚体碰撞计算才开始,导致的性能上升,所以我把器械驱动的值修改成随机的,然后验证下.
+### 21 {collapsible="true"}
 
+I have been tested eCAL receive in Update(),but the performance is as same as in thread with callback,so I use
+callback currently.

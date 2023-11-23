@@ -212,3 +212,8 @@ In this case ,is 16.67ms
         );
 ```
 still 24ms
+
+
+## 方案
+
+pb,Captain,flatter,对比一下,pb不一定最好

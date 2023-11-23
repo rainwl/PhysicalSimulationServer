@@ -1,3 +1,3 @@
-# Pure Rigid Simulation
+# Rigid Simulation
 
 Start typing here...

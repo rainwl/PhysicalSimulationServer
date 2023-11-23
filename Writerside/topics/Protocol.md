@@ -1,8 +1,9 @@
 # Protocol
 
-I use eCAL to replace shared memory,before this,I need to tidy all related items.
+I use eCAL as the communication suite, which will add some new protocols as well as replace some of the native shared memory.
 
-## TODO
+
+## TODO {collapsible="true"}
 
 | item                                | status |
 |-------------------------------------|--------|
@@ -11,15 +12,32 @@ I use eCAL to replace shared memory,before this,I need to tidy all related items
 | add send fusion data function       | done   |
 |                                     |        |
 
-## Protocol item
-
+## Protocol item {collapsible="true"}
 shared memory item(old)
 : `GeomagicCalibration` unity->flex
 : `HapticDeviceStatus`
 : `Evaluation` flex->unity
-: `SerialPort` unity->flex
+: `SerialPort` [fusion data](#fusiondata)
+: `Endoscope`        
+: `Tube`             
+: `InsturmentSwitch`
+: `nerve`            
+: `FlocculeSoftBody`
+: `dfspace`          
+: `fat`              
+: `vessel1`          
+: `vessel2`          
+: `posterior`        
+: `annulus`          
+: `nucleus`          
+: `dura`
 
-### FusionData
+
+
+### FusionData {collapsible="true"}
+`Interface data->Physics`
+
+Use `ExternalData.h` to set and get external data.
 
 Because in FleX,I have been created a `std::array<float,40>` in `FusionData.h`(`old:SerialPort.h`) to receive the values,so whatever the
 value origin types are,
@@ -59,4 +77,3 @@ You can refer to the following link for specific protocol definitions.
 
 > [proto definition](Proto-files.md)
 > {style="note"}
-
