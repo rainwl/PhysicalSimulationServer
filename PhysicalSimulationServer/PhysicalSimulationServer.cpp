@@ -25,6 +25,7 @@ int main(const int argc, char **argv) {
 #pragma endregion
 
   while (eCAL::Ok()) {
+    const int64_t st = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 #pragma region mutable_ set_
     fusion_data.mutable_endoscope_pos()->set_x(dis_0_10(gen));
     fusion_data.mutable_endoscope_pos()->set_y(dis_0_10(gen));
@@ -78,9 +79,11 @@ int main(const int argc, char **argv) {
 
     fusion_data.set_nerve_root_dance(0);
 #pragma endregion
-    const int data_size = fusion_data.ByteSizeLong();// NOLINT(clang-diagnostic-shorten-64-to-32, bugprone-narrowing-conversions, cppcoreguidelines-narrowing-conversions)
-    auto data = std::make_unique<uint8_t[]>(data_size);  // NOLINT(clang-diagnostic-shadow)
+    const int data_size = fusion_data.ByteSizeLong();  // NOLINT(clang-diagnostic-shorten-64-to-32, bugprone-narrowing-conversions, cppcoreguidelines-narrowing-conversions)
+    auto data = std::make_unique<uint8_t[]>(data_size);// NOLINT(clang-diagnostic-shadow)
     fusion_data.SerializePartialToArray(data.get(), data_size);
+    const int64_t et = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    std::cout << "serialize time: " << et - st << "\n";
 
     const int code = publisher.Send(data.get(), data_size);// NOLINT(clang-diagnostic-shorten-64-to-32, bugprone-narrowing-conversions, cppcoreguidelines-narrowing-conversions)
     if (code != data_size) { std::cout << "failure\n"; }
