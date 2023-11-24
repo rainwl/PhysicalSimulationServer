@@ -15,4 +15,6 @@
     <toc-element topic="Proto-files.md"/>
     <toc-element topic="eCAL-performance-measure.md"/>
     <toc-element topic="ScriptRef.md"/>
+    <toc-element topic="Data-Driven-Instruments.md"/>
+    <toc-element topic="SOFA.md"/>
 </instance-profile>

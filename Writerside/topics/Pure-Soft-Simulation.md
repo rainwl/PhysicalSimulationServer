@@ -30,6 +30,7 @@
 | 23 | The sequence of open Simulate Server and Flex has different perform                           |             |      |
 | 24 | Tidy all shared memory between FleX and Unity                                                 |             |      |
 | 25 | The tube direction is random every time.(bin) Does it have anything to do with not locking it |             |      |
+| 26 | KeyDown,SDL_SCANCODE_KP_x,how to use this                                                     |             |      |
 
 ## Issues
 
