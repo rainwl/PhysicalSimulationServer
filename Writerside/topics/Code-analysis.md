@@ -114,6 +114,54 @@ Quat q(orient[0], orient[1], orient[2], orient[3]);
 m_posDevice = TranslationMatrix(Point3(pos)) * RotationMatrix(q);
 ```
 
+We know that the driver is `m_instrumentState0`,and in `Main.scn`,
+```xml
+<MechanicalObject name="Articulations" template="Vec1d" 
+                  size="8" tags="R" 
+                  position="@innerInstrumentSwitch.posture" 
+                  rest_position="@innerInstrumentSwitch.posture"/>
+```
+We can see clearly the position of the driver is `innerInstrumentSwitch.posture`,
+
+Corresponds to FleX,is **InnerInstrumentSwitch.h**
+```C++
+Data<Vec1dTypes::VecCoord> d_posture;
+```
+They have a relational relationship.(Answers received from @oht)
+
+So, in **Geomagic.h**,
+```C++
+void updatePosition() {
+  if (sofa_scene.get() && sofa_scene->sofa_instrument_switch.get()) {
+    sofa::defaulttype::Vec1Types::VecCoord &ps =
+        *sofa_scene->sofa_instrument_switch->d_posture.beginEdit();
+    ComputePositions(translationDevice, orientationDevice, ps);
+    sofa_scene->sofa_instrument_switch->d_posture.endEdit();
+  }
+}
+```
+```C++
+void ComputePositions(Vec3 &p_device, Quat &r_device,
+                        sofa::defaulttype::Vec1Types::VecCoord &ps,
+                        bool is_callback = false) {
+  ps[0][0] = euler[1];
+  ps[1][0] = euler[0];
+  ps[2][0] = z_endoscope;
+  ps[3][0] = z_endoscope_rot;
+  ps[4][0] = z_tube;
+  ps[5][0] = z_tube_rot;
+  ps[6][0] = dz + (0) + delta_z;
+  ps[7][0] = euler[2]; 
+}                
+```
+
+Here is the data driver.
+
+`euler[1]`和`euler[0]` are the overall rotation of the instrument around the pivot.
+
+`eluer[2]` is the self rotation of instrument.
+
+
 
 
 ### m_posDevice (Instrument.h) {collapsible="true"}

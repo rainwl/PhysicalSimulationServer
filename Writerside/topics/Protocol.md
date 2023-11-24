@@ -10,38 +10,14 @@ I use eCAL as the communication suite, which will add some new protocols as well
 | rename the protocol                 | done   |
 | rename `SerialPort` to `FusionData` | done   |
 | add send fusion data function       | done   |
-|                                     |        |
+| add pos and rot for rongeur         |        |
 
 ## Protocol item {collapsible="true"}
-shared memory item(old)
-: `GeomagicCalibration` unity->flex
-: `HapticDeviceStatus`
-: `Evaluation` flex->unity
-: `SerialPort` [fusion data](#fusiondata)
-: `Endoscope`        
-: `Tube`             
-: `InsturmentSwitch`
-: `nerve`            
-: `FlocculeSoftBody`
-: `dfspace`          
-: `fat`              
-: `vessel1`          
-: `vessel2`          
-: `posterior`        
-: `annulus`          
-: `nucleus`          
-: `dura`
-
-
 
 ### FusionData {collapsible="true"}
 `Interface data->Physics`
 
 Use `ExternalData.h` to set and get external data.
-
-Because in FleX,I have been created a `std::array<float,40>` in `FusionData.h`(`old:SerialPort.h`) to receive the values,so whatever the
-value origin types are,
-all values should be passed using the `float` type.
 
 | **index** | **proto**                | **example** | **index** | **proto**                       | **example** |
 |-----------|--------------------------|-------------|-----------|---------------------------------|-------------|
@@ -65,6 +41,19 @@ all values should be passed using the `float` type.
 | **17**    | rot_coord.x              | 0           | **37**    | soft_tissue.dura_mater          | 1           |
 | **18**    | rot_coord.y              | 0.707106    | **38**    | soft_tissue.nerve_root          | 1           |
 | **19**    | rot_coord.z              | 0           | **39**    | nerve_root_dance                | 0           |
+|           |                          |             |           |                                 |             |
+| **21**    | rongeur_pos.x            |             |           |                                 |             |
+| **22**    | rongeur_pos.y            |             |           |                                 |             |
+| **23**    | rongeur_pos.z            |             |           |                                 |             |
+| **24**    | rongeur_rot.x            |             |           |                                 |             |
+| **25**    | rongeur_rot.y            |             |           |                                 |             |
+| **26**    | rongeur_rot.z            |             |           |                                 |             |
+
+
+
+
+
+
 
 explain
 : `endoscope_offset` The upper and lower offset of the endoscope
@@ -77,3 +66,4 @@ You can refer to the following link for specific protocol definitions.
 
 > [proto definition](Proto-files.md)
 > {style="note"}
+
