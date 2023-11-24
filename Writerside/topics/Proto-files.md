@@ -27,6 +27,8 @@ message FusionData
     float hemostasis_index = 11;
     Tissue.Tissue soft_tissue = 12;
     float nerve_root_dance = 13;
+    Coord.Vector3 rongeur_pos = 14;
+    Coord.Vector3 rongeur_rot = 15;
 }
 ```
 

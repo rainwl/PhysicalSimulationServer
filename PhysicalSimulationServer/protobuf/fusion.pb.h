@@ -188,6 +188,8 @@ class FusionData :
     kPivotPosFieldNumber = 7,
     kHapticFieldNumber = 9,
     kSoftTissueFieldNumber = 12,
+    kRongeurPosFieldNumber = 14,
+    kRongeurRotFieldNumber = 15,
     kAblationCountFieldNumber = 8,
     kHemostasisCountFieldNumber = 10,
     kHemostasisIndexFieldNumber = 11,
@@ -328,6 +330,36 @@ class FusionData :
   ::pb::Tissue::Tissue* _internal_mutable_soft_tissue();
   public:
 
+  // .pb.Coord.Vector3 rongeur_pos = 14;
+  bool has_rongeur_pos() const;
+  private:
+  bool _internal_has_rongeur_pos() const;
+  public:
+  void clear_rongeur_pos();
+  const ::pb::Coord::Vector3& rongeur_pos() const;
+  ::pb::Coord::Vector3* release_rongeur_pos();
+  ::pb::Coord::Vector3* mutable_rongeur_pos();
+  void set_allocated_rongeur_pos(::pb::Coord::Vector3* rongeur_pos);
+  private:
+  const ::pb::Coord::Vector3& _internal_rongeur_pos() const;
+  ::pb::Coord::Vector3* _internal_mutable_rongeur_pos();
+  public:
+
+  // .pb.Coord.Vector3 rongeur_rot = 15;
+  bool has_rongeur_rot() const;
+  private:
+  bool _internal_has_rongeur_rot() const;
+  public:
+  void clear_rongeur_rot();
+  const ::pb::Coord::Vector3& rongeur_rot() const;
+  ::pb::Coord::Vector3* release_rongeur_rot();
+  ::pb::Coord::Vector3* mutable_rongeur_rot();
+  void set_allocated_rongeur_rot(::pb::Coord::Vector3* rongeur_rot);
+  private:
+  const ::pb::Coord::Vector3& _internal_rongeur_rot() const;
+  ::pb::Coord::Vector3* _internal_mutable_rongeur_rot();
+  public:
+
   // float ablation_count = 8;
   void clear_ablation_count();
   float ablation_count() const;
@@ -378,6 +410,8 @@ class FusionData :
   ::pb::Coord::Vector3* pivot_pos_;
   ::pb::Haptic::Haptic* haptic_;
   ::pb::Tissue::Tissue* soft_tissue_;
+  ::pb::Coord::Vector3* rongeur_pos_;
+  ::pb::Coord::Vector3* rongeur_rot_;
   float ablation_count_;
   float hemostasis_count_;
   float hemostasis_index_;
@@ -960,6 +994,114 @@ inline void FusionData::_internal_set_nerve_root_dance(float value) {
 inline void FusionData::set_nerve_root_dance(float value) {
   _internal_set_nerve_root_dance(value);
   // @@protoc_insertion_point(field_set:pb.FusionData.FusionData.nerve_root_dance)
+}
+
+// .pb.Coord.Vector3 rongeur_pos = 14;
+inline bool FusionData::_internal_has_rongeur_pos() const {
+  return this != internal_default_instance() && rongeur_pos_ != nullptr;
+}
+inline bool FusionData::has_rongeur_pos() const {
+  return _internal_has_rongeur_pos();
+}
+inline const ::pb::Coord::Vector3& FusionData::_internal_rongeur_pos() const {
+  const ::pb::Coord::Vector3* p = rongeur_pos_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::pb::Coord::Vector3*>(
+      &::pb::Coord::_Vector3_default_instance_);
+}
+inline const ::pb::Coord::Vector3& FusionData::rongeur_pos() const {
+  // @@protoc_insertion_point(field_get:pb.FusionData.FusionData.rongeur_pos)
+  return _internal_rongeur_pos();
+}
+inline ::pb::Coord::Vector3* FusionData::release_rongeur_pos() {
+  // @@protoc_insertion_point(field_release:pb.FusionData.FusionData.rongeur_pos)
+  
+  ::pb::Coord::Vector3* temp = rongeur_pos_;
+  rongeur_pos_ = nullptr;
+  return temp;
+}
+inline ::pb::Coord::Vector3* FusionData::_internal_mutable_rongeur_pos() {
+  
+  if (rongeur_pos_ == nullptr) {
+    auto* p = CreateMaybeMessage<::pb::Coord::Vector3>(GetArenaNoVirtual());
+    rongeur_pos_ = p;
+  }
+  return rongeur_pos_;
+}
+inline ::pb::Coord::Vector3* FusionData::mutable_rongeur_pos() {
+  // @@protoc_insertion_point(field_mutable:pb.FusionData.FusionData.rongeur_pos)
+  return _internal_mutable_rongeur_pos();
+}
+inline void FusionData::set_allocated_rongeur_pos(::pb::Coord::Vector3* rongeur_pos) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(rongeur_pos_);
+  }
+  if (rongeur_pos) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      rongeur_pos = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rongeur_pos, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  rongeur_pos_ = rongeur_pos;
+  // @@protoc_insertion_point(field_set_allocated:pb.FusionData.FusionData.rongeur_pos)
+}
+
+// .pb.Coord.Vector3 rongeur_rot = 15;
+inline bool FusionData::_internal_has_rongeur_rot() const {
+  return this != internal_default_instance() && rongeur_rot_ != nullptr;
+}
+inline bool FusionData::has_rongeur_rot() const {
+  return _internal_has_rongeur_rot();
+}
+inline const ::pb::Coord::Vector3& FusionData::_internal_rongeur_rot() const {
+  const ::pb::Coord::Vector3* p = rongeur_rot_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::pb::Coord::Vector3*>(
+      &::pb::Coord::_Vector3_default_instance_);
+}
+inline const ::pb::Coord::Vector3& FusionData::rongeur_rot() const {
+  // @@protoc_insertion_point(field_get:pb.FusionData.FusionData.rongeur_rot)
+  return _internal_rongeur_rot();
+}
+inline ::pb::Coord::Vector3* FusionData::release_rongeur_rot() {
+  // @@protoc_insertion_point(field_release:pb.FusionData.FusionData.rongeur_rot)
+  
+  ::pb::Coord::Vector3* temp = rongeur_rot_;
+  rongeur_rot_ = nullptr;
+  return temp;
+}
+inline ::pb::Coord::Vector3* FusionData::_internal_mutable_rongeur_rot() {
+  
+  if (rongeur_rot_ == nullptr) {
+    auto* p = CreateMaybeMessage<::pb::Coord::Vector3>(GetArenaNoVirtual());
+    rongeur_rot_ = p;
+  }
+  return rongeur_rot_;
+}
+inline ::pb::Coord::Vector3* FusionData::mutable_rongeur_rot() {
+  // @@protoc_insertion_point(field_mutable:pb.FusionData.FusionData.rongeur_rot)
+  return _internal_mutable_rongeur_rot();
+}
+inline void FusionData::set_allocated_rongeur_rot(::pb::Coord::Vector3* rongeur_rot) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(rongeur_rot_);
+  }
+  if (rongeur_rot) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      rongeur_rot = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rongeur_rot, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  rongeur_rot_ = rongeur_rot;
+  // @@protoc_insertion_point(field_set_allocated:pb.FusionData.FusionData.rongeur_rot)
 }
 
 #ifdef __GNUC__

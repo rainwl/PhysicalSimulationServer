@@ -71,6 +71,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_fusion_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::pb::FusionData::FusionData, hemostasis_index_),
   PROTOBUF_FIELD_OFFSET(::pb::FusionData::FusionData, soft_tissue_),
   PROTOBUF_FIELD_OFFSET(::pb::FusionData::FusionData, nerve_root_dance_),
+  PROTOBUF_FIELD_OFFSET(::pb::FusionData::FusionData, rongeur_pos_),
+  PROTOBUF_FIELD_OFFSET(::pb::FusionData::FusionData, rongeur_rot_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::pb::FusionData::FusionData)},
@@ -83,7 +85,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_fusion_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\014fusion.proto\022\rpb.FusionData\032\013coord.pro"
   "to\032\014tissue.proto\032\014haptic.proto\032\014offset.p"
-  "roto\"\315\003\n\nFusionData\022(\n\rendoscope_pos\030\001 \001"
+  "roto\"\235\004\n\nFusionData\022(\n\rendoscope_pos\030\001 \001"
   "(\0132\021.pb.Coord.Vector3\022(\n\017endoscope_euler"
   "\030\002 \001(\0132\017.pb.Coord.Euler\022#\n\010tube_pos\030\003 \001("
   "\0132\021.pb.Coord.Vector3\022#\n\ntube_euler\030\004 \001(\013"
@@ -94,7 +96,9 @@ const char descriptor_table_protodef_fusion_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "aptic\030\t \001(\0132\021.pb.Haptic.Haptic\022\030\n\020hemost"
   "asis_count\030\n \001(\002\022\030\n\020hemostasis_index\030\013 \001"
   "(\002\022&\n\013soft_tissue\030\014 \001(\0132\021.pb.Tissue.Tiss"
-  "ue\022\030\n\020nerve_root_dance\030\r \001(\002b\006proto3"
+  "ue\022\030\n\020nerve_root_dance\030\r \001(\002\022&\n\013rongeur_"
+  "pos\030\016 \001(\0132\021.pb.Coord.Vector3\022&\n\013rongeur_"
+  "rot\030\017 \001(\0132\021.pb.Coord.Vector3b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_fusion_2eproto_deps[4] = {
   &::descriptor_table_coord_2eproto,
@@ -108,7 +112,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_fus
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_fusion_2eproto_once;
 static bool descriptor_table_fusion_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_fusion_2eproto = {
-  &descriptor_table_fusion_2eproto_initialized, descriptor_table_protodef_fusion_2eproto, "fusion.proto", 556,
+  &descriptor_table_fusion_2eproto_initialized, descriptor_table_protodef_fusion_2eproto, "fusion.proto", 636,
   &descriptor_table_fusion_2eproto_once, descriptor_table_fusion_2eproto_sccs, descriptor_table_fusion_2eproto_deps, 1, 4,
   schemas, file_default_instances, TableStruct_fusion_2eproto::offsets,
   file_level_metadata_fusion_2eproto, 1, file_level_enum_descriptors_fusion_2eproto, file_level_service_descriptors_fusion_2eproto,
@@ -140,6 +144,10 @@ void FusionData::InitAsDefaultInstance() {
       ::pb::Haptic::Haptic::internal_default_instance());
   ::pb::FusionData::_FusionData_default_instance_._instance.get_mutable()->soft_tissue_ = const_cast< ::pb::Tissue::Tissue*>(
       ::pb::Tissue::Tissue::internal_default_instance());
+  ::pb::FusionData::_FusionData_default_instance_._instance.get_mutable()->rongeur_pos_ = const_cast< ::pb::Coord::Vector3*>(
+      ::pb::Coord::Vector3::internal_default_instance());
+  ::pb::FusionData::_FusionData_default_instance_._instance.get_mutable()->rongeur_rot_ = const_cast< ::pb::Coord::Vector3*>(
+      ::pb::Coord::Vector3::internal_default_instance());
 }
 class FusionData::_Internal {
  public:
@@ -152,6 +160,8 @@ class FusionData::_Internal {
   static const ::pb::Coord::Vector3& pivot_pos(const FusionData* msg);
   static const ::pb::Haptic::Haptic& haptic(const FusionData* msg);
   static const ::pb::Tissue::Tissue& soft_tissue(const FusionData* msg);
+  static const ::pb::Coord::Vector3& rongeur_pos(const FusionData* msg);
+  static const ::pb::Coord::Vector3& rongeur_rot(const FusionData* msg);
 };
 
 const ::pb::Coord::Vector3&
@@ -189,6 +199,14 @@ FusionData::_Internal::haptic(const FusionData* msg) {
 const ::pb::Tissue::Tissue&
 FusionData::_Internal::soft_tissue(const FusionData* msg) {
   return *msg->soft_tissue_;
+}
+const ::pb::Coord::Vector3&
+FusionData::_Internal::rongeur_pos(const FusionData* msg) {
+  return *msg->rongeur_pos_;
+}
+const ::pb::Coord::Vector3&
+FusionData::_Internal::rongeur_rot(const FusionData* msg) {
+  return *msg->rongeur_rot_;
 }
 void FusionData::clear_endoscope_pos() {
   if (GetArenaNoVirtual() == nullptr && endoscope_pos_ != nullptr) {
@@ -244,6 +262,18 @@ void FusionData::clear_soft_tissue() {
   }
   soft_tissue_ = nullptr;
 }
+void FusionData::clear_rongeur_pos() {
+  if (GetArenaNoVirtual() == nullptr && rongeur_pos_ != nullptr) {
+    delete rongeur_pos_;
+  }
+  rongeur_pos_ = nullptr;
+}
+void FusionData::clear_rongeur_rot() {
+  if (GetArenaNoVirtual() == nullptr && rongeur_rot_ != nullptr) {
+    delete rongeur_rot_;
+  }
+  rongeur_rot_ = nullptr;
+}
 FusionData::FusionData()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -298,6 +328,16 @@ FusionData::FusionData(const FusionData& from)
   } else {
     soft_tissue_ = nullptr;
   }
+  if (from._internal_has_rongeur_pos()) {
+    rongeur_pos_ = new ::pb::Coord::Vector3(*from.rongeur_pos_);
+  } else {
+    rongeur_pos_ = nullptr;
+  }
+  if (from._internal_has_rongeur_rot()) {
+    rongeur_rot_ = new ::pb::Coord::Vector3(*from.rongeur_rot_);
+  } else {
+    rongeur_rot_ = nullptr;
+  }
   ::memcpy(&ablation_count_, &from.ablation_count_,
     static_cast<size_t>(reinterpret_cast<char*>(&nerve_root_dance_) -
     reinterpret_cast<char*>(&ablation_count_)) + sizeof(nerve_root_dance_));
@@ -326,6 +366,8 @@ void FusionData::SharedDtor() {
   if (this != internal_default_instance()) delete pivot_pos_;
   if (this != internal_default_instance()) delete haptic_;
   if (this != internal_default_instance()) delete soft_tissue_;
+  if (this != internal_default_instance()) delete rongeur_pos_;
+  if (this != internal_default_instance()) delete rongeur_rot_;
 }
 
 void FusionData::SetCachedSize(int size) const {
@@ -379,6 +421,14 @@ void FusionData::Clear() {
     delete soft_tissue_;
   }
   soft_tissue_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && rongeur_pos_ != nullptr) {
+    delete rongeur_pos_;
+  }
+  rongeur_pos_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && rongeur_rot_ != nullptr) {
+    delete rongeur_rot_;
+  }
+  rongeur_rot_ = nullptr;
   ::memset(&ablation_count_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&nerve_root_dance_) -
       reinterpret_cast<char*>(&ablation_count_)) + sizeof(nerve_root_dance_));
@@ -481,6 +531,20 @@ const char* FusionData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 109)) {
           nerve_root_dance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // .pb.Coord.Vector3 rongeur_pos = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
+          ptr = ctx->ParseMessage(_internal_mutable_rongeur_pos(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .pb.Coord.Vector3 rongeur_rot = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
+          ptr = ctx->ParseMessage(_internal_mutable_rongeur_rot(), ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -605,6 +669,22 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(13, this->_internal_nerve_root_dance(), target);
   }
 
+  // .pb.Coord.Vector3 rongeur_pos = 14;
+  if (this->has_rongeur_pos()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        14, _Internal::rongeur_pos(this), target, stream);
+  }
+
+  // .pb.Coord.Vector3 rongeur_rot = 15;
+  if (this->has_rongeur_rot()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        15, _Internal::rongeur_rot(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -682,6 +762,20 @@ size_t FusionData::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *soft_tissue_);
+  }
+
+  // .pb.Coord.Vector3 rongeur_pos = 14;
+  if (this->has_rongeur_pos()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *rongeur_pos_);
+  }
+
+  // .pb.Coord.Vector3 rongeur_rot = 15;
+  if (this->has_rongeur_rot()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *rongeur_rot_);
   }
 
   // float ablation_count = 8;
@@ -762,6 +856,12 @@ void FusionData::MergeFrom(const FusionData& from) {
   if (from.has_soft_tissue()) {
     _internal_mutable_soft_tissue()->::pb::Tissue::Tissue::MergeFrom(from._internal_soft_tissue());
   }
+  if (from.has_rongeur_pos()) {
+    _internal_mutable_rongeur_pos()->::pb::Coord::Vector3::MergeFrom(from._internal_rongeur_pos());
+  }
+  if (from.has_rongeur_rot()) {
+    _internal_mutable_rongeur_rot()->::pb::Coord::Vector3::MergeFrom(from._internal_rongeur_rot());
+  }
   if (!(from.ablation_count() <= 0 && from.ablation_count() >= 0)) {
     _internal_set_ablation_count(from._internal_ablation_count());
   }
@@ -806,6 +906,8 @@ void FusionData::InternalSwap(FusionData* other) {
   swap(pivot_pos_, other->pivot_pos_);
   swap(haptic_, other->haptic_);
   swap(soft_tissue_, other->soft_tissue_);
+  swap(rongeur_pos_, other->rongeur_pos_);
+  swap(rongeur_rot_, other->rongeur_rot_);
   swap(ablation_count_, other->ablation_count_);
   swap(hemostasis_count_, other->hemostasis_count_);
   swap(hemostasis_index_, other->hemostasis_index_);

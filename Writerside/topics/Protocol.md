@@ -42,12 +42,12 @@ Use `ExternalData.h` to set and get external data.
 | **18**    | rot_coord.y              | 0.707106    | **38**    | soft_tissue.nerve_root          | 1           |
 | **19**    | rot_coord.z              | 0           | **39**    | nerve_root_dance                | 0           |
 |           |                          |             |           |                                 |             |
-| **21**    | rongeur_pos.x            |             |           |                                 |             |
-| **22**    | rongeur_pos.y            |             |           |                                 |             |
-| **23**    | rongeur_pos.z            |             |           |                                 |             |
-| **24**    | rongeur_rot.x            |             |           |                                 |             |
-| **25**    | rongeur_rot.y            |             |           |                                 |             |
-| **26**    | rongeur_rot.z            |             |           |                                 |             |
+| **40**    | rongeur_pos.x            |             |           |                                 |             |
+| **41**    | rongeur_pos.y            |             |           |                                 |             |
+| **42**    | rongeur_pos.z            |             |           |                                 |             |
+| **43**    | rongeur_rot.x            |             |           |                                 |             |
+| **44**    | rongeur_rot.y            |             |           |                                 |             |
+| **45**    | rongeur_rot.z            |             |           |                                 |             |
 
 
 

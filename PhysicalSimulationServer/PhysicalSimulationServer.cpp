@@ -79,6 +79,14 @@ int main(const int argc, char **argv) {
     fusion_data.mutable_soft_tissue()->set_nerve_root(1);
 
     fusion_data.set_nerve_root_dance(0);
+
+    fusion_data.mutable_rongeur_pos()->set_x(dis_0_10(gen));
+    fusion_data.mutable_rongeur_pos()->set_y(dis_0_10(gen));
+    fusion_data.mutable_rongeur_pos()->set_z(dis_0_10(gen));
+
+    fusion_data.mutable_rongeur_rot()->set_x(dis_330_360(gen));
+    fusion_data.mutable_rongeur_rot()->set_y(dis_10_15(gen));
+    fusion_data.mutable_rongeur_rot()->set_z(dis_10_15(gen));
 #pragma endregion
     const int data_size = fusion_data.ByteSizeLong();  // NOLINT(clang-diagnostic-shorten-64-to-32, bugprone-narrowing-conversions, cppcoreguidelines-narrowing-conversions)
     auto data = std::make_unique<uint8_t[]>(data_size);// NOLINT(clang-diagnostic-shadow)
