@@ -22,6 +22,7 @@ int main(const int argc, char **argv) {
   std::uniform_real_distribution<float> dis_0_10(0.0, 10.0);
   std::uniform_real_distribution<float> dis_330_360(330.0, 360.0);
   std::uniform_real_distribution<float> dis_10_15(10.0, 15.0);
+  std::uniform_real_distribution<float> dis_0_1(0.0,1.0);
 #pragma endregion
 
   while (eCAL::Ok()) {
@@ -46,7 +47,7 @@ int main(const int argc, char **argv) {
     fusion_data.mutable_offset()->set_endoscope_offset(-1);
     fusion_data.mutable_offset()->set_tube_offset(-3);
     fusion_data.mutable_offset()->set_instrument_switch(60);
-    fusion_data.mutable_offset()->set_animation_value(0.5);
+    fusion_data.mutable_offset()->set_animation_value(dis_0_1(gen));
     fusion_data.mutable_offset()->set_pivot_offset(2);
 
     fusion_data.mutable_rot_coord()->set_x(0);
