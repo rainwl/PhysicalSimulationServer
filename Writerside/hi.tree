@@ -9,12 +9,12 @@
     <toc-element topic="overview.md"/>
     <toc-element topic="Pure-Soft-Simulation.md"/>
     <toc-element topic="Pure-Rigid-Simulation.md"/>
-    <toc-element topic="Code-analysis.md"/>
     <toc-element topic="Protocol.md"/>
-    <toc-element topic="SharedMemory.md"/>
     <toc-element topic="Proto-files.md"/>
-    <toc-element topic="eCAL-performance-measure.md"/>
+    <toc-element topic="Code-analysis.md"/>
     <toc-element topic="ScriptRef.md"/>
+    <toc-element topic="SharedMemory.md"/>
+    <toc-element topic="eCAL-performance-measure.md"/>
     <toc-element topic="Data-Driven-Instruments.md"/>
     <toc-element topic="SOFA.md"/>
 </instance-profile>

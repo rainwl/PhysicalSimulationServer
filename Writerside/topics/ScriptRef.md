@@ -18,7 +18,7 @@ class ExternalData {
 public:
   static ExternalData &get_instance();
 
-  void set_value(const float v0, const float v1, const float v2, const float v3, const float v4, const float v5, const float v6, const float v7, const float v8, const float v9, const float v10, const float v11, const float v12, const float v13, const float v14, const float v15, const float v16, const float v17, const float v18, const float v19, const float v20, const float v21, const float v22, const float v23, const float v24, const float v25, const float v26, const float v27, const float v28, const float v29, const float v30, const float v31, const float v32, const float v33, const float v34, const float v35, const float v36, const float v37, const float v38, const float v39);
+  void set_value(const float v0, const float v1, const float v2, const float v3, const float v4, const float v5, const float v6, const float v7, const float v8, const float v9, const float v10, const float v11, const float v12, const float v13, const float v14, const float v15, const float v16, const float v17, const float v18, const float v19, const float v20, const float v21, const float v22, const float v23, const float v24, const float v25, const float v26, const float v27, const float v28, const float v29, const float v30, const float v31, const float v32, const float v33, const float v34, const float v35, const float v36, const float v37, const float v38, const float v39, const float v40, const float v41, const float v42, const float v43, const float v44, const float v45);
 
   void update_data(float value, size_t index);
 
@@ -30,7 +30,7 @@ private:
   ExternalData();
 
   mutable std::mutex mutex_;
-  std::array<float,40> data_;
+  std::array<float,46> data_;
 };
 
 inline ExternalData &ExternalData::get_instance() {
@@ -38,8 +38,8 @@ inline ExternalData &ExternalData::get_instance() {
   return instance;
 }
 
-inline void ExternalData::set_value(const float v0, const float v1, const float v2, const float v3, const float v4, const float v5, const float v6, const float v7, const float v8, const float v9, const float v10, const float v11, const float v12, const float v13, const float v14, const float v15, const float v16, const float v17, const float v18, const float v19, const float v20, const float v21, const float v22, const float v23, const float v24, const float v25, const float v26, const float v27, const float v28, const float v29, const float v30, const float v31, const float v32, const float v33, const float v34, const float v35, const float v36, const float v37, const float v38, const float v39) {
-  //std::lock_guard<std::mutex> lock(mutex_);
+inline void ExternalData::set_value(const float v0, const float v1, const float v2, const float v3, const float v4, const float v5, const float v6, const float v7, const float v8, const float v9, const float v10, const float v11, const float v12, const float v13, const float v14, const float v15, const float v16, const float v17, const float v18, const float v19, const float v20, const float v21, const float v22, const float v23, const float v24, const float v25, const float v26, const float v27, const float v28, const float v29, const float v30, const float v31, const float v32, const float v33, const float v34, const float v35, const float v36, const float v37, const float v38, const float v39, const float v40, const float v41, const float v42, const float v43, const float v44, const float v45) {
+  // std::lock_guard<std::mutex> lock(mutex_);
   data_[0] = v0;
   data_[1] = v1;
   data_[2] = v2;
@@ -80,6 +80,12 @@ inline void ExternalData::set_value(const float v0, const float v1, const float 
   data_[37] = v37;
   data_[38] = v38;
   data_[39] = v39;
+  data_[40] = v40;
+  data_[41] = v41;
+  data_[42] = v42;
+  data_[43] = v43;
+  data_[44] = v44;
+  data_[45] = v45;
 }
 
 inline void ExternalData::update_data(float value, size_t index) {
@@ -88,7 +94,7 @@ inline void ExternalData::update_data(float value, size_t index) {
 }
 
 inline float ExternalData::get_data(size_t index) const {
-  //std::lock_guard<std::mutex> lock(mutex_);
+  // std::lock_guard<std::mutex> lock(mutex_);
   //if (index < data_.size()) { return data_[index]; }
   return data_[index];
 }
@@ -99,6 +105,5 @@ inline ExternalData::ExternalData(ExternalData const &)
 inline ExternalData::ExternalData()
   : data_() {}
 #endif// SINGLETON_DATA_RECEIVER_H
-
 ```
 {collapsible="true" collapsed-title="ExternalData.h"}

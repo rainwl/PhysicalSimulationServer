@@ -1,7 +1,15 @@
 # Proto files
 
-## fusion.proto
+| **.proto** |
+|------------|
+| fusion     |
+| coord      |
+| tissue     |
+| haptic     |
+| offset     |
 
+
+## proto files {collapsible="true"}
 ```C++
 syntax = "proto3";
 
@@ -32,7 +40,7 @@ message FusionData
 }
 ```
 
-## coord.proto
+{collapsible="true" collapsed-title="fusion.proto"}
 
 ```C++
 syntax = "proto3";
@@ -62,7 +70,7 @@ message Quaternion
 }
 ```
 
-## tissue.proto
+{collapsible="true" collapsed-title="coord.proto"}
 
 ```C++
 syntax = "proto3";
@@ -83,7 +91,7 @@ message Tissue
 }
 ```
 
-## haptic.proto
+{collapsible="true" collapsed-title="tissue.proto"}
 
 ```C++
 syntax = "proto3";
@@ -98,7 +106,7 @@ message Haptic
 }
 ```
 
-## offset.proto
+{collapsible="true" collapsed-title="haptic.proto"}
 
 ```C++
 syntax = "proto3";
@@ -114,3 +122,5 @@ message Offset
     float pivot_offset = 5;
 }
 ```
+
+{collapsible="true" collapsed-title="offset.proto"}

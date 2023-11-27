@@ -1,20 +1,21 @@
 # Protocol
 
-I use eCAL as the communication suite, which will add some new protocols as well as replace some of the native shared memory.
+I use eCAL as the communication suite, which will add some new protocols as well as replace some of the native shared
+memory.
 
+## TODO
 
-## TODO {collapsible="true"}
+|   | **issue**                           | **status** |
+|---|-------------------------------------|------------|
+| 0 | rename the protocol                 | done       |
+| 1 | rename `SerialPort` to `FusionData` | done       |
+| 2 | add send fusion data function       | done       |
+| 3 | add pos and rot for rongeur         |            |
 
-| item                                | status |
-|-------------------------------------|--------|
-| rename the protocol                 | done   |
-| rename `SerialPort` to `FusionData` | done   |
-| add send fusion data function       | done   |
-| add pos and rot for rongeur         |        |
-
-## Protocol item {collapsible="true"}
+## Protocol item
 
 ### FusionData {collapsible="true"}
+
 `Interface data->Physics`
 
 Use `ExternalData.h` to set and get external data.
@@ -48,12 +49,6 @@ Use `ExternalData.h` to set and get external data.
 | **43**    | rongeur_rot.x            |             |           |                                 |             |
 | **44**    | rongeur_rot.y            |             |           |                                 |             |
 | **45**    | rongeur_rot.z            |             |           |                                 |             |
-
-
-
-
-
-
 
 explain
 : `endoscope_offset` The upper and lower offset of the endoscope
