@@ -31,6 +31,7 @@
 | 24 | ~~Tidy all shared memory between FleX and Unity~~                                                 | [SharedMemory](SharedMemory.md) |
 | 25 | ~~The tube direction is random every time.(bin) Does it have anything to do with not locking it~~ | [processing](#25)               |
 | 26 | KeyDown,SDL_SCANCODE_KP_x,how to use this                                                         |                                 |
+| 27 | Driven Instrument,decoupling soft,verify penetrate                                                |                                 |
 
 ## Issues {collapsible="true"}
 
@@ -193,3 +194,5 @@ but,if we open FleX first, and then open server ,may crash.
 ### 25 {collapsible="true"}
 
 although the performance of protobuf is low,but ,it is stable,and we don't use binary at now.
+
+### 27 {collapsible="true"}

@@ -17,4 +17,7 @@
     <toc-element topic="eCAL-performance-measure.md"/>
     <toc-element topic="Data-Driven-Instruments.md"/>
     <toc-element topic="SOFA.md"/>
+    <toc-element topic="IMGUI.md"/>
+    <toc-element topic="Penetrate.md"/>
+    <toc-element topic="Objviewer.md"/>
 </instance-profile>

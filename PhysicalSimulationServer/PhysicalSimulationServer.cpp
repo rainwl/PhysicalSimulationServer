@@ -27,7 +27,8 @@ int main(const int argc, char **argv) {
 
   while (eCAL::Ok()) {
     const int64_t st = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-#pragma region mutable_ set_
+
+    #pragma region mutable_ set_
     fusion_data.mutable_endoscope_pos()->set_x(dis_0_10(gen));
     fusion_data.mutable_endoscope_pos()->set_y(dis_0_10(gen));
     fusion_data.mutable_endoscope_pos()->set_z(dis_0_10(gen));
