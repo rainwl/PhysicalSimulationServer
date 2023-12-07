@@ -10,4 +10,8 @@
         <description>Created after removal of "Modules" from SimulationServer</description>
         <accepts>Modules.html</accepts>
     </rule>
+    <rule id="36f10da6">
+        <description>Created after removal of "Concrete action" from SimulationServer</description>
+        <accepts>Concrete-action.html</accepts>
+    </rule>
 </rules>

@@ -19,7 +19,6 @@
     <toc-element topic="SOFA.md"/>
     <toc-element topic="IMGUI.md"/>
     <toc-element topic="Penetrate.md">
-        <toc-element topic="Concrete-action.md"/>
         <toc-element topic="CodeAna.md"/>
     </toc-element>
     <toc-element topic="Objviewer.md"/>
