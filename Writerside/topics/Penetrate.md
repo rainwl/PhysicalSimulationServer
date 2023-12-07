@@ -1,4 +1,12 @@
-# Penetrate
+# Penetration problems of instruments and softbody
+
+## Overview
+
+The above video is the original effect, and the below is the improved one.
+
+<video src="softorigin.mp4" preview-src="softorigincover.png" width="500"/> 
+
+<video src="softlink.mp4" preview-src="softlinkcover.png" width="500"/>
 
 |   |                                    |   |
 |---|------------------------------------|---|
