@@ -10,8 +10,6 @@ The above video is the original effect, and the below is the improved one.
 
 <video src="softlink.mp4" preview-src="softlinkcover.png" width="500"/>
 
-
-
 ## Case
 
 |   | case                                    | status                                                 |
