@@ -16,18 +16,10 @@
 ```C++
 void CreateSoftBody(SoftBody::Instance instance, int group = 0)
 {
-    RenderingInstance renderingInstance;
-
     Mesh *mesh = ImportMesh(GetFilePathByPlatform(instance.mFile).c_str());
     mesh->Normalize();
     mesh->Transform(TranslationMatrix(Point3(instance.mTranslation)) * ScaleMatrix(instance.mScale * 0.1f));
-
-    renderingInstance.mMesh = mesh;
-    renderingInstance.mColor = instance.mColor;
-    renderingInstance.mOffset = g_buffers->rigidTranslations.size();
-
-    double createStart = GetSeconds();
-
+    
     // create soft body definition
     NvFlexExtAsset *asset = NvFlexExtCreateSoftFromMesh(
         (float *)&renderingInstance.mMesh->m_positions[0],
@@ -46,34 +38,7 @@ void CreateSoftBody(SoftBody::Instance instance, int group = 0)
         instance.mClusterPlasticThreshold,
         instance.mClusterPlasticCreep);
 
-    double createEnd = GetSeconds();
-
-    // create skinning
-    const int maxWeights = 4;
-
-    renderingInstance.mSkinningIndices.resize(renderingInstance.mMesh->m_positions.size() * maxWeights);
-    renderingInstance.mSkinningWeights.resize(renderingInstance.mMesh->m_positions.size() * maxWeights);
-
-    for (int i = 0; i < asset->numShapes; ++i)
-        renderingInstance.mRigidRestPoses.push_back(Vec3(&asset->shapeCenters[i * 3]));
-
-    double skinStart = GetSeconds();
-
-    NvFlexExtCreateSoftMeshSkinning(
-        (float *)&renderingInstance.mMesh->m_positions[0],
-        renderingInstance.mMesh->m_positions.size(),
-        asset->shapeCenters,
-        asset->numShapes,
-        instance.mSkinningFalloff,
-        instance.mSkinningMaxDistance,
-        &renderingInstance.mSkinningWeights[0],
-        &renderingInstance.mSkinningIndices[0]);
-
-    double skinEnd = GetSeconds();
-
-    printf("Created soft in %f ms Skinned in %f\n", (createEnd - createStart) * 1000.0f,
-           (skinEnd - skinStart) * 1000.0f);
-
+  
     const int particleOffset = g_buffers->positions.size();
     const int indexOffset = g_buffers->rigidOffsets.back();
 
@@ -99,52 +64,6 @@ void CreateSoftBody(SoftBody::Instance instance, int group = 0)
         g_buffers->rigidCoefficients.push_back(asset->shapeCoefficients[i]);
     }
 
-
-    // add plastic deformation data to solver, if at least one asset has non-zero plastic deformation coefficients, leave the according pointers at NULL otherwise
-    if (plasticDeformation)
-    {
-        if (asset->shapePlasticThresholds && asset->shapePlasticCreeps)
-        {
-            for (int i = 0; i < asset->numShapes; ++i)
-            {
-                g_buffers->rigidPlasticThresholds.push_back(asset->shapePlasticThresholds[i]);
-                g_buffers->rigidPlasticCreeps.push_back(asset->shapePlasticCreeps[i]);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < asset->numShapes; ++i)
-            {
-                g_buffers->rigidPlasticThresholds.push_back(0.0f);
-                g_buffers->rigidPlasticCreeps.push_back(0.0f);
-            }
-        }
-    }
-    else
-    {
-        if (asset->shapePlasticThresholds && asset->shapePlasticCreeps)
-        {
-            int oldBufferSize = g_buffers->rigidCoefficients.size() - asset->numShapes;
-
-            g_buffers->rigidPlasticThresholds.resize(oldBufferSize);
-            g_buffers->rigidPlasticCreeps.resize(oldBufferSize);
-
-            for (int i = 0; i < oldBufferSize; i++)
-            {
-                g_buffers->rigidPlasticThresholds[i] = 0.0f;
-                g_buffers->rigidPlasticCreeps[i] = 0.0f;
-            }
-
-            for (int i = 0; i < asset->numShapes; ++i)
-            {
-                g_buffers->rigidPlasticThresholds.push_back(asset->shapePlasticThresholds[i]);
-                g_buffers->rigidPlasticCreeps.push_back(asset->shapePlasticCreeps[i]);
-            }
-
-            plasticDeformation = true;
-        }
-    }
-
     // add link data to the solver 
     for (int i = 0; i < asset->numSprings; ++i)
     {
@@ -156,24 +75,190 @@ void CreateSoftBody(SoftBody::Instance instance, int group = 0)
     }
 
     NvFlexExtDestroyAsset(asset);
-
-    mRenderingInstances.push_back(renderingInstance);
 }
 ```
 
 {collapsible="true" collapsed-title="void CreateSoftBody(SoftBody::Instance instance, int group = 0)"}
 
-![](Instance.png){width="400"}
+Among it, there is an important method:
+```C++
+NvFlexExtAsset* NvFlexExtCreateSoftFromMesh(const float* vertices, int numVertices, const int* indices, int numIndices, float particleSpacing, float volumeSampling, float surfaceSampling, float clusterSpacing, float clusterRadius, float clusterStiffness, float linkRadius, float linkStiffness, float globalStiffness, float clusterPlasticThreshold, float clusterPlasticCreep)
+{
+	// Switch to relative coordinates by computing the mean position of the vertices and subtracting the result from every vertex position
+	// The increased precision will prevent ghost forces caused by inaccurate center of mass computations
+	Vec3 meshOffset(0.0f);
+	for (int i = 0; i < numVertices; i++)
+	{
+		meshOffset += ((Vec3*)vertices)[i];
+	}
+	meshOffset /= float(numVertices);
 
-Useful parameters include
-: mClusterSpacing
-: mClusterRadius
-: mClusterStiffness
-: mLinkRadius
-: mLinkStiffness
-: mGlobalStiffness
-: `?`mSurfaceSampling
-: `?`mVolumeSampling
+	Vec3* relativeVertices = new Vec3[numVertices];
+	for (int i = 0; i < numVertices; i++)
+	{
+		relativeVertices[i] += ((Vec3*)vertices)[i] - meshOffset;
+	}
+
+	// construct asset definition
+	NvFlexExtAsset* asset = new NvFlexExtAsset();
+
+	// create particle sampling
+	std::vector<Vec3> samples;
+	SampleMesh(relativeVertices, numVertices, indices, numIndices, particleSpacing, volumeSampling, surfaceSampling, samples);
+
+	delete[] relativeVertices;
+
+	const int numParticles = int(samples.size());	
+
+	std::vector<int> clusterIndices;
+	std::vector<int> clusterOffsets;
+	std::vector<Vec3> clusterPositions;
+	std::vector<float> clusterCoefficients;
+	std::vector<float> clusterPlasticThresholds;
+	std::vector<float> clusterPlasticCreeps;
+
+	// priority (not currently used)
+	std::vector<float> priority(numParticles);
+	for (int i = 0; i < int(priority.size()); ++i)
+		priority[i] = 0.0f;
+
+	// cluster particles into shape matching groups
+	int numClusters = CreateClusters(&samples[0], &priority[0], int(samples.size()), clusterOffsets, clusterIndices, clusterPositions, clusterSpacing, clusterRadius);
+	
+	// assign all clusters the same stiffness 
+	clusterCoefficients.resize(numClusters, clusterStiffness);
+
+	if (clusterPlasticCreep) 
+	{
+		// assign all clusters the same plastic threshold 
+		clusterPlasticThresholds.resize(numClusters, clusterPlasticThreshold);
+
+		// assign all clusters the same plastic creep 
+		clusterPlasticCreeps.resize(numClusters, clusterPlasticCreep);
+	}
+
+	// create links between clusters 
+	if (linkRadius > 0.0f)
+	{		
+		std::vector<int> springIndices;
+		std::vector<float> springLengths;
+		std::vector<float> springStiffness;
+
+		// create links between particles
+		int numLinks = CreateLinks(&samples[0], int(samples.size()), springIndices, springLengths, springStiffness, linkRadius, linkStiffness);
+
+		// assign links
+		if (numLinks)
+		{			
+			asset->springIndices = new int[numLinks * 2];
+			memcpy(asset->springIndices, &springIndices[0], sizeof(int)*springIndices.size());
+
+			asset->springCoefficients = new float[numLinks];
+			memcpy(asset->springCoefficients, &springStiffness[0], sizeof(float)*numLinks);
+
+			asset->springRestLengths = new float[numLinks];
+			memcpy(asset->springRestLengths, &springLengths[0], sizeof(float)*numLinks);
+
+			asset->numSprings = numLinks;
+		}
+	}
+
+	// add an additional global cluster with stiffness = globalStiffness
+	if (globalStiffness > 0.0f)
+	{
+		numClusters += 1;
+		clusterCoefficients.push_back(globalStiffness);
+		if (clusterPlasticCreep) 
+		{
+			clusterPlasticThresholds.push_back(clusterPlasticThreshold);
+			clusterPlasticCreeps.push_back(clusterPlasticCreep);
+		}
+
+		for (int i = 0; i < numParticles; ++i)
+		{
+			clusterIndices.push_back(i);
+		}
+		clusterOffsets.push_back((int)clusterIndices.size());
+
+		// the mean of the global cluster is the mean of all particles
+		Vec3 globalMeanPosition(0.0f);
+		for (int i = 0; i < numParticles; ++i)
+		{
+			globalMeanPosition += samples[i];
+		}
+		globalMeanPosition /= float(numParticles);
+		clusterPositions.push_back(globalMeanPosition);
+	}
+
+	// Switch back to absolute coordinates by adding meshOffset to the centers of mass and to each particle positions
+	for (int i = 0; i < numParticles; ++i)
+	{
+		 samples[i] += meshOffset;
+	}
+	for (int i = 0; i < numClusters; ++i)
+	{
+		clusterPositions[i] += meshOffset;
+	}
+
+	// assign particles
+	asset->particles = new float[numParticles * 4];
+	asset->numParticles = numParticles;
+	asset->maxParticles = numParticles;
+
+	for (int i = 0; i < numParticles; ++i)
+	{
+		asset->particles[i*4+0] = samples[i].x;
+		asset->particles[i*4+1] = samples[i].y;
+		asset->particles[i*4+2] = samples[i].z;
+		asset->particles[i*4+3] = 1.0f;
+	}
+
+	// assign shapes
+	asset->shapeIndices = new int[clusterIndices.size()];
+	memcpy(asset->shapeIndices, &clusterIndices[0], sizeof(int)*clusterIndices.size());
+
+	asset->shapeOffsets = new int[numClusters];
+	memcpy(asset->shapeOffsets, &clusterOffsets[0], sizeof(int)*numClusters);
+
+	asset->shapeCenters = new float[numClusters*3];
+	memcpy(asset->shapeCenters, &clusterPositions[0], sizeof(float)*numClusters*3);
+
+	asset->shapeCoefficients = new float[numClusters];
+	memcpy(asset->shapeCoefficients, &clusterCoefficients[0], sizeof(float)*numClusters);
+
+	if (clusterPlasticCreep) 
+	{
+		asset->shapePlasticThresholds = new float[numClusters];
+		memcpy(asset->shapePlasticThresholds, &clusterPlasticThresholds[0], sizeof(float)*numClusters);
+
+		asset->shapePlasticCreeps = new float[numClusters];
+		memcpy(asset->shapePlasticCreeps, &clusterPlasticCreeps[0], sizeof(float)*numClusters);
+	}
+	else
+	{
+		asset->shapePlasticThresholds = NULL;
+		asset->shapePlasticCreeps = NULL;
+	}
+
+	asset->numShapeIndices = int(clusterIndices.size());
+	asset->numShapes = numClusters;
+
+	return asset;
+}
+```
+
+{collapsible="true" collapsed-title="NvFlexExtAsset* NvFlexExtCreateSoftFromMesh"}
+
+Explanation
+: First, the average position of all vertices is calculated as the center point of the local coordinate system
+: At the same time, the new positions of all points in the local coordinate system are calculated and stored
+: Then we sample all the points in the new local coordinate system
+: The current priorities are all 0
+: Then clusters are created based on the sampled points, and all clusters are assigned the same stiffness
+: At the same time, links are created based on the sampled points, and the links are created between particles
+: If there is a global stiffness, a global cluster is created and a stiffness is assigned
+
+### Specific method interpretation
 
 **SampleMesh**
 
@@ -299,7 +384,7 @@ void SampleMesh(const Vec3* vertices, int numVertices, const int* indices, int n
 Is designed to create a set of sample points on the surface and within the volume of a mesh and then cluster these
 sample points into groups that can be considered particles.
 
-#### Declarations
+`Declarations`
 
 - `radius` is the desired radius around each sample point to be considered for clustering.
 - `volumeSampling` and `surfaceSampling` are multipliers that control the density of sampling within the volume and on
