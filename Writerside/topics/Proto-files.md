@@ -1,12 +1,12 @@
 # Proto files
 
-| **.proto** |
-|------------|
-| fusion     |
-| coord      |
-| tissue     |
-| haptic     |
-| offset     |
+
+.proto
+: fusion
+: coord
+: tissue
+: haptic
+: offset
 
 
 ## proto files {collapsible="true"}

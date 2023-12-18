@@ -1,4 +1,4 @@
-# Penetration problems of instruments and softbody
+# Penetration
 
 <video src="new.mp4" preview-src="newcover.png" width="500"/>
 

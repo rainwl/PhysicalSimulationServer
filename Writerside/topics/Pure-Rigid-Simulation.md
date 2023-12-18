@@ -1,3 +1,0 @@
-# Rigid Simulation
-
-Start typing here...

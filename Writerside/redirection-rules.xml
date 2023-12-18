@@ -14,4 +14,16 @@
         <description>Created after removal of "Concrete action" from SimulationServer</description>
         <accepts>Concrete-action.html</accepts>
     </rule>
+    <rule id="4a25ea18">
+        <description>Created after removal of "ScriptRef" from SimulationServer</description>
+        <accepts>ScriptRef.html</accepts>
+    </rule>
+    <rule id="4ac60e0f">
+        <description>Created after removal of "Rigid Simulation" from SimulationServer</description>
+        <accepts>Pure-Rigid-Simulation.html</accepts>
+    </rule>
+    <rule id="e0c5e38">
+        <description>Created after removal of "Objviewer" from SimulationServer</description>
+        <accepts>Objviewer.html</accepts>
+    </rule>
 </rules>
