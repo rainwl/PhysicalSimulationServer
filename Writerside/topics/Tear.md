@@ -2,15 +2,23 @@
 
 ![tear flow](Tear.png){thumbnail="true"}
 
+- If the `tear_force` is greater than the `tear_force_threshold`, then the floccule tearing can be achieved.
+- **So we should focus on `tear_force`**
+- We assign the `tear_force` with `m_tearForce` from the `Instrument.h`
+- The current `m_tearForce` comes from `SOFA` calculations
+
+> Calculate the soft force ,from Rongeur.h 's ProcessContacts.
+> When particles fixed on the rongeur,record this and when tearing , compute.
+> {style="note"}
+
+
 |   | TODO                                      | Status     |
 |---|-------------------------------------------|------------|
 | 0 | close mouse tear                          | [done](#0) |
 | 1 | `m_tearForce` flow                        | [done](#1) |
 | 2 | verify if give a const variable for force | [done](#2) |
 | 3 | write a new function to calculate force   |            |
-| 4 |                                           |            |
-| 5 |                                           |            |
-| 6 |                                           |            |
+
 
 ## 0 {collapsible="true"}
 
