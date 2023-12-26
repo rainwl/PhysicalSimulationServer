@@ -23,6 +23,7 @@
         <toc-element topic="Link.md"/>
         <toc-element topic="CodeAna.md"/>
     </toc-element>
+    <toc-element topic="BreakLink.md"/>
     <toc-element topic="Code-analysis.md"/>
     <toc-element topic="Pure-Soft-Simulation.md"/>
     <toc-element topic="Tear.md"/>
