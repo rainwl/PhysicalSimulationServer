@@ -8,8 +8,11 @@
 
 
     <toc-element topic="overview.md"/>
+    <toc-element topic="RigidBody.md"/>
+    <toc-element topic="NewProto.md"/>
     <toc-element topic="DataTransmission.md">
         <toc-element topic="Protocol.md"/>
+        <toc-element topic="discuss-proto.md"/>
         <toc-element topic="Proto-files.md"/>
         <toc-element topic="SharedMemory.md"/>
         <toc-element topic="Data-Driven-Instruments.md"/>
@@ -29,4 +32,6 @@
     <toc-element topic="Assets-configuration.md"/>
     <toc-element topic="Code-analysis.md"/>
     <toc-element topic="Tear.md"/>
+    <toc-element topic="SoftContactForce.md"/>
+    <toc-element topic="Performance-Survey.md"/>
 </instance-profile>

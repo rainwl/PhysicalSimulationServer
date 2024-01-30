@@ -17,10 +17,12 @@ if xxx_mirror00.obj exists
 
 > **Suggestions for front-end (like unity)**
 >
-> Each time before entering the endoscope scenario, overwrite `Main.scn` with `Main1.scn` or `Main3.scn` in the backup
+> Each time before entering the endoscope scenario, overwrite or create `Main.scn` with `Main1.scn` or `Main3.scn` in the backup
 > directory.
 >
 > Under customized mode, move `xxx_mirror00.obj` to the backup directory to prevent it from being read by FleX.
+> 
+> And return to the original position when the operation is complete.
 > {style = "note"}
 
 > **NOTICE**

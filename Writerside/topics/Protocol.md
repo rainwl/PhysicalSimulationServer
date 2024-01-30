@@ -10,11 +10,11 @@ memory.
 | 0 | rename the protocol                 | done       |
 | 1 | rename `SerialPort` to `FusionData` | done       |
 | 2 | add send fusion data function       | done       |
-| 3 | add pos and rot for rongeur         |            |
+| 3 | add pos and rot for rongeur         | done       |
 
 ## Protocol item
 
-### FusionData {collapsible="true"}
+### FusionData
 
 `Interface data->Physics`
 
@@ -56,6 +56,7 @@ explain
 : `haptic_state` 0:Closing haptic 1:Open haptic 2:Closing haptic & physics 3: Open all
 : `haptic_offset` Offset of pliers
 : `soft_tissue` 0:Unable to grab 1:able to grab
+: `ablation_count` 0 & 1 ,if 1 ,can burn a hole
 
 You can refer to the following link for specific protocol definitions.
 

@@ -50,10 +50,9 @@ The effect is OK.
 
 ## 3 {collapsible="true"}
 
-`m_tearForce` is a variable from `FlocculationSurfaceMesh.h`.
+`tear_force` is a variable from `FlocculationSurfaceMesh.h`.
 
 `m_tear_force` is a variable from `InstrumentSwitch.h`.
-
 
 In `FlocculationSoftTearing.h`,use `set_tear_force` to assign it.
 
